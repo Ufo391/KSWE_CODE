@@ -2,5 +2,7 @@
   "name": "starduell",
   "app_id": "ff58ded1",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
