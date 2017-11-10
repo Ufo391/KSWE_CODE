@@ -10,7 +10,8 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
 import { OptionsPage } from '../pages/options/options'; 
-import { ArchivePage } from '../pages/archive/archive'; 
+import { ArchivePage } from '../pages/archive/archive';
+import { AuthProvider } from '../providers/auth/auth'; 
 
 
 
@@ -42,7 +43,8 @@ import { ArchivePage } from '../pages/archive/archive';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider
   ]
 })
 export class AppModule {}
