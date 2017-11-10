@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModePage } from '../mode/mode';
+import { AlertController } from 'ionic-angular';
+
 
 /**
  * Generated class for the LoginPage page.
@@ -15,15 +18,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+	@ViewChild('username') uname;
+	@ViewChild('password') password;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  signin() {
-  
+  signIn() {
+  	if(this.uname.value == "admin" && this.password.value == "admin") {
+  	  	this.navCtrl.push(ModePage);
+
+  	} else {
+  		let alert = this.alertCtrl.create({
+  			title: 'Fuck You!',
+  			subTitle: 'You entered incorrect data....admin,admin',
+  			buttons: ['OK']
+  		});
+  		alert.present();
+  	}
   }
 
 }

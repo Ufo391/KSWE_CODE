@@ -8,6 +8,10 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { ModePage } from '../pages/mode/mode';
+import { OptionsPage } from '../pages/options/options'; 
+import { ArchivePage } from '../pages/archive/archive'; 
+
 
 
 
@@ -16,7 +20,10 @@ import { RegisterPage } from '../pages/register/register';
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ModePage,
+    OptionsPage,
+    ArchivePage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +34,10 @@ import { RegisterPage } from '../pages/register/register';
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ModePage,
+    OptionsPage,
+    ArchivePage
   ],
   providers: [
     StatusBar,
