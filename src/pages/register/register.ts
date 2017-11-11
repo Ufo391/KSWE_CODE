@@ -22,7 +22,7 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
-  /*register() {
+  register() {
 
     this.showLoader();
 
@@ -49,6 +49,6 @@ export class RegisterPage {
 
     this.loading.present();
 
-  } */
+  }
 
 }

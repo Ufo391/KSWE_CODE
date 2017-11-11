@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ModePage } from '../mode/mode';
 import { AlertController } from 'ionic-angular';
-//import { Auth } from '../../providers/auth';
+import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -17,14 +17,14 @@ export class LoginPage {
 	password: string;
 	loading: any;
 
-	constructor(public navCtrl: NavController/*, public authService: Auth*/, public loadingCtrl: LoadingController, public navParams: NavParams, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public authProvider: AuthProvider, public loadingCtrl: LoadingController, public navParams: NavParams, public alertCtrl: AlertController) {
 	}
 
-	/*ionViewDidLoad() {
+	ionViewDidLoad() {
 		console.log('ionViewDidLoad LoginPage');
 
 		//Check if already authenticated
-		this.authService.checkAuthentication().then((res) => {
+		this.authProvider.checkAuthentication().then((res) => {
 			console.log("Already authorized");
 			this.loading.dismiss();
 			this.navCtrl.setRoot(HomePage);
@@ -43,7 +43,7 @@ export class LoginPage {
 			password: this.password
 		};
 
-		this.authService.login(credentials).then((result) => {
+		this.authProvider.login(credentials).then((result) => {
 			this.loading.dismiss();
 			console.log(result);
 			// TODO Evtl. andere Page auswählen
@@ -65,14 +65,14 @@ export class LoginPage {
   		});
   		alert.present();
 		}*/
-//}*/
+	}
 
-	/*showLoader(){
+	showLoader() {
 		this.loading = this.loadingCtrl.create({
 			content: 'Authenticating...'
 		});
 
 		this.loading.present();
-	}*/
+	}
 
 }
