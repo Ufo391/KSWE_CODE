@@ -1,34 +1,59 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ModePage } from '../mode/mode';
 import { AlertController } from 'ionic-angular';
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+//import { Auth } from '../../providers/auth';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+	selector: 'page-login',
+	templateUrl: 'login.html',
 })
 export class LoginPage {
 
-	@ViewChild('username') uname;
-	@ViewChild('password') password;
+	//TODO email = uname ?
+	email: string;
+	password: string;
+	loading: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
-  }
+	constructor(public navCtrl: NavController/*, public authService: Auth*/, public loadingCtrl: LoadingController, public navParams: NavParams, public alertCtrl: AlertController) {
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+	/*ionViewDidLoad() {
+		console.log('ionViewDidLoad LoginPage');
 
-  signIn() {
+		//Check if already authenticated
+		this.authService.checkAuthentication().then((res) => {
+			console.log("Already authorized");
+			this.loading.dismiss();
+			this.navCtrl.setRoot(HomePage);
+		}, (err) => {
+			console.log("Not already authorized");
+			this.loading.dismiss();
+		});
+	}
+
+	login() {
+
+		this.showLoader();
+
+		let credentials = {
+			email: this.email,
+			password: this.password
+		};
+
+		this.authService.login(credentials).then((result) => {
+			this.loading.dismiss();
+			console.log(result);
+			// TODO Evtl. andere Page auswählen
+			this.navCtrl.setRoot(ModePage);
+		}, (err) => {
+			this.loading.dismiss();
+			console.log(err);
+		});
+
+		/*
   	if(this.uname.value == "admin" && this.password.value == "admin") {
   	  	this.navCtrl.push(ModePage);
 
@@ -39,7 +64,15 @@ export class LoginPage {
   			buttons: ['OK']
   		});
   		alert.present();
-  	}
-  }
+		}*/
+//}*/
+
+	/*showLoader(){
+		this.loading = this.loadingCtrl.create({
+			content: 'Authenticating...'
+		});
+
+		this.loading.present();
+	}*/
 
 }
