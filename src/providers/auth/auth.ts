@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, HttpModule, Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 import 'rxjs/add/operator/map';
 
@@ -15,30 +15,32 @@ export class AuthProvider {
   checkAuthentication() {
 
     return new Promise((resolve, reject) => {
-      /*
+
       this.nativeStorage.getItem('myitem')
-      .then(
+        .then(
         data => console.log(data),
         error => console.error(error)
-      );*/
+        );
 
       //Load token if exists
-      /*this.nativeStorage.getItem('token').then((value) => {
- 
-          this.token = value;
- 
-          let headers = new Headers();
-          headers.append('Authorization', this.token);
- 
-          this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/protected', {headers: headers})
+      this.nativeStorage.getItem('token').then((data) => {
+
+        this.token = data;
+
+        let headers = new Headers();
+        headers.append('Authorization', this.token);
+
+        this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/protected', { headers: headers })
           //this.http.get('TODO', {headers: headers})
-              .subscribe(res => {
-                  resolve(res);
-              }, (err) => {
-                  reject(err);
-              });
- 
-      });        */
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+
+      },
+        error => console.error(error)
+      );
 
     });
 
@@ -58,15 +60,12 @@ export class AuthProvider {
           let data = res.json();
           this.token = data.token;
 
-          /*
-          this.nativeStorage.setItem('myitem', {property: 'value', anotherProperty: 'anotherValue'})
-          .then(
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
-          );*/
+          this.nativeStorage.setItem('token', { tokenValue: data.token })
+            .then(
+            () => console.log('Stored login token!'),
+            error => console.error('Error storing login token!', error)
+            );
 
-
-          //this.nativeStorage.setItem('token', data.token);
           resolve(data);
 
         }, (err) => {
@@ -91,14 +90,12 @@ export class AuthProvider {
           let data = res.json();
           this.token = data.token;
 
-          /*
-          this.nativeStorage.setItem('myitem', {property: 'value', anotherProperty: 'anotherValue'})
-          .then(
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
-          );*/
+          this.nativeStorage.setItem('token', { tokenValue: data.token })
+            .then(
+            () => console.log('Stored login token!'),
+            error => console.error('Error storing login token!', error)
+            );
 
-          //this.nativeStorage.setItem('token', data.token);
           resolve(data);
 
           resolve(res.json());
@@ -110,14 +107,11 @@ export class AuthProvider {
   }
 
   logout() {
-    /*
-            this.nativeStorage.setItem('myitem', {property: 'value', anotherProperty: 'anotherValue'})
-            .then(
-              () => console.log('Stored item!'),
-              error => console.error('Error storing item', error)
-            );*/
-
-    //this.nativeStorage.setItem('token', '');
+    this.nativeStorage.setItem('token', { tokenValue: '' })
+      .then(
+      () => console.log('Reset login token!'),
+      error => console.error('Error resetting login token!', error)
+      );
   }
 
 }

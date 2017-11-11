@@ -48,9 +48,18 @@ export class LoginPage {
 			console.log(result);
 			// TODO Evtl. andere Page auswählen
 			this.navCtrl.setRoot(ModePage);
+			this.navCtrl.push(ModePage);
+
 		}, (err) => {
 			this.loading.dismiss();
 			console.log(err);
+
+			let alert = this.alertCtrl.create({
+				title: 'Login failed!',
+				subTitle: 'You entered incorrect data.',
+				buttons: ['OK']
+			});
+			alert.present();
 		});
 
 		/*
