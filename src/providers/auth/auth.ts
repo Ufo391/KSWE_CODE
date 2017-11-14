@@ -40,12 +40,11 @@ export class AuthProvider {
           //this.http.post('TODO PLATZHALTER', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
 
-            this.debugAusgabe("checkAuthentification()", res[0]);
 
 
-            if(res[0] == 'true'){
+            if (res[0] == 'true') {
               resolve(data);
-            } else {reject();}
+            } else  { reject(); }
 
           }, (err) => {
             reject(err);
@@ -59,9 +58,8 @@ export class AuthProvider {
 
   }
 
+  // Account anlegen (registrieren)
   createAccount(details) {
-
-    this.debugAusgabe("Auth", "createAccount()");
 
     return new Promise((resolve, reject) => {
 
@@ -83,8 +81,6 @@ export class AuthProvider {
 
           resolve(data);
 
-          this.debugAusgabe("createAccount()", res[0]);
-
         }, (err) => {
           reject(err);
         });
@@ -93,11 +89,13 @@ export class AuthProvider {
 
   }
 
+  // Auf dem Server anmelden
+  // Speichert Session als Cookie im Storage ab
   login(credentials: CredentialsModel) {
 
     return new Promise((resolve, reject) => {
 
-      /* Später JSON-Objekt mit allen Daten an den Server schicken
+      /* TODO Später JSON-Objekt mit allen Daten an den Server schicken
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       baut den JSON String:
@@ -108,13 +106,24 @@ export class AuthProvider {
 
           let data = res.json();
 
-          this.nativeStorage.setItem('token', { tokenValue: data })
+          //Hier kommt true oder false an:
+          console.log("returnData: " + data);
+
+          //TODO Session ID im Storage speichern (funktioniert noch nicht)
+          this.nativeStorage.setItem('token', { tokenValue: "hallo" })
             .then(
             () => console.log('Stored login token!'),
             error => console.error('Error storing login token!', error)
             );
 
-            resolve(data);
+          //Zum Testen auslesen
+          /*this.nativeStorage.getItem('token').then((datas) => {
+            this.debugAusgabe("TokenValue", datas);
+          },
+            error => console.error(error)
+          );*/
+
+          resolve(data);
         }, (err) => {
           reject(err);
         });
@@ -122,21 +131,15 @@ export class AuthProvider {
     });
   }
 
+  // Vom Server abmelden
+  // Löscht Session Cookie vom Storage
   logout() {
+    // TODO Vom Server abmelden
     this.nativeStorage.setItem('token', { tokenValue: '' })
       .then(
       () => console.log('Reset login token!'),
       error => console.error('Error resetting login token!', error)
       );
-  }
-
-  debugAusgabe(titel: string, text: string) {
-    let alert = this.alertCtrl.create({
-      title: titel,
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
 }

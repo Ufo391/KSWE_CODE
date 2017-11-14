@@ -13,7 +13,6 @@ import { CredentialsModel } from '../../app/models/CredentialsModel';
 })
 export class LoginPage {
 
-	//TODO email = uname ?
 	email: string;
 	password: string;
 	loading: any;
@@ -22,54 +21,44 @@ export class LoginPage {
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad LoginPage');
-
-		//Check if already authenticated
+		//Checkt, ob die gespeicherte Session noch auf dem Server aktiv ist.
 		this.authProvider.checkAuthentication().then((res) => {
-			console.log("Already authorized");
+			console.log("Noch angemeldet");
 			this.loading.dismiss();
 			this.navCtrl.setRoot(HomePage);
 		}, (err) => {
-			console.log("Not already authorized");
+			console.log("Nicht mehr angemeldet");
 			this.loading.dismiss();
 		});
 	}
 
 	login() {
-
 		this.showLoader();
 
+		//Speichert die Anmeldedaten als Objekt.
 		let credentials = new CredentialsModel(this.email, this.password);
 
-		this.authProvider.login(credentials).then((result) => {
+		this.authProvider.login(credentials).then((result: string) => {
 
 			this.loading.dismiss();
-			console.log(result);
 
-			this.navCtrl.setRoot(ModePage);
-			this.navCtrl.push(ModePage);
+			//Vergleicht, ob der Login-Vorgang erfolgreich war.
+			if (result.toString() === "true") {
+				//TODO Zurück-Pfeil entfernen
+				//Logout hinzufügen
+				this.navCtrl.setRoot(ModePage);
+				this.navCtrl.push(ModePage);
+			} else {
+				this.giveAlert("Fehler!", "Falsche Login-Daten");
+			}
 
 		}, (err) => {
+			//Keine Kommunikation zum Server möglich.
 			this.loading.dismiss();
 			console.log(err);
-			this.debugAusgabe("login() error", err[0]);
+			this.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
 		});
 
-		//TODO Antwort des Servers auswerten (true und false)
-		
-
-		/*
-  	if(this.uname.value == "admin" && this.password.value == "admin") {
-  	  	this.navCtrl.push(ModePage);
-
-  	} else {
-  		let alert = this.alertCtrl.create({
-  			title: 'Fuck You!',
-  			subTitle: 'You entered incorrect data....admin,admin',
-  			buttons: ['OK']
-  		});
-  		alert.present();
-		}*/
 	}
 
 	showLoader() {
@@ -80,13 +69,13 @@ export class LoginPage {
 		this.loading.present();
 	}
 
-	debugAusgabe(titel: string, text: string) {
+	giveAlert(titel: string, text: string) {
 		let alert = this.alertCtrl.create({
-		  title: titel,
-		  subTitle: text,
-		  buttons: ['OK']
+			title: titel,
+			subTitle: text,
+			buttons: ['OK']
 		});
 		alert.present();
-	  }
+	}
 
 }
