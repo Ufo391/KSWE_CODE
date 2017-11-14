@@ -4,6 +4,7 @@ import { ModePage } from '../mode/mode';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
+import { CredentialsModel } from '../../app/models/CredentialsModel';
 
 @IonicPage()
 @Component({
@@ -38,29 +39,24 @@ export class LoginPage {
 
 		this.showLoader();
 
-		let credentials = {
-			email: this.email,
-			password: this.password
-		};
+		let credentials = new CredentialsModel(this.email, this.password);
 
 		this.authProvider.login(credentials).then((result) => {
+
 			this.loading.dismiss();
 			console.log(result);
-			// TODO Evtl. andere Page auswählen
+
 			this.navCtrl.setRoot(ModePage);
 			this.navCtrl.push(ModePage);
 
 		}, (err) => {
 			this.loading.dismiss();
 			console.log(err);
-
-			let alert = this.alertCtrl.create({
-				title: 'Login failed!',
-				subTitle: 'You entered incorrect data.',
-				buttons: ['OK']
-			});
-			alert.present();
+			this.debugAusgabe("login() error", err[0]);
 		});
+
+		//TODO Antwort des Servers auswerten (true und false)
+		
 
 		/*
   	if(this.uname.value == "admin" && this.password.value == "admin") {
@@ -83,5 +79,14 @@ export class LoginPage {
 
 		this.loading.present();
 	}
+
+	debugAusgabe(titel: string, text: string) {
+		let alert = this.alertCtrl.create({
+		  title: titel,
+		  subTitle: text,
+		  buttons: ['OK']
+		});
+		alert.present();
+	  }
 
 }
