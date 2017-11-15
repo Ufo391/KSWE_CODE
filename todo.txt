@@ -1,1 +1,0 @@
-https://www.joshmorony.com/creating-role-based-authentication-with-passport-in-ionic-2-part-2/
