@@ -5,6 +5,7 @@ import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 import { CredentialsModel } from '../../app/models/CredentialsModel';
+import { ServerResponseModel } from '../../app/models/ServerResponseModel';
 
 @IonicPage()
 @Component({
@@ -38,7 +39,7 @@ export class LoginPage {
 		//Speichert die Anmeldedaten als Objekt.
 		let credentials = new CredentialsModel(this.name, this.password);
 
-		this.authProvider.login(credentials).then((result: string) => {
+		this.authProvider.login(credentials).then((result: ServerResponseModel) => {
 
 			this.loading.dismiss();
 
@@ -52,7 +53,22 @@ export class LoginPage {
 				this.giveAlert("Fehler!", "Falsche Login-Daten");
 			}*/
 
-			
+			let serverResponse = result;
+
+			if (serverResponse.succeed()) {
+				if (serverResponse.getMsg() === "TODO Msg-Typen vom Server unterscheiden.") {
+					this.navCtrl.setRoot(ModePage);
+					this.navCtrl.push(ModePage);
+				} else {
+
+				}
+			} else {
+				if (serverResponse.getMsg() === "Authentication failed. Wrong password.") {
+					this.giveAlert("Fehler!", "Falsche Login-Daten");
+				} else {
+
+				}
+			}
 
 		}, (err) => {
 			//Keine Kommunikation zum Server möglich.

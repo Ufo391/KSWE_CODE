@@ -3,7 +3,7 @@ export class CredentialsModel {
     constructor(private name:string, private pass:string) {
     }
 
-    getEmail() {
+    getName() {
         return this.name;
     }
 

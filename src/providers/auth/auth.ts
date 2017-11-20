@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 export class AuthProvider {
 
   public token: any;
-  private server: string = "api/";
 
   constructor(private http: Http, public nativeStorage: NativeStorage, public alertCtrl: AlertController) {
   }
@@ -81,7 +80,7 @@ export class AuthProvider {
       
       //Web Example:
       //this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/register', JSON.stringify(details), { headers: headers })
-      this.http.post('http://localhost:3000/api/authenticate', JSON.stringify(credentials), {headers: headers})
+      this.http.post('api/authenticate', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
 
           let data = res.json();
@@ -128,7 +127,7 @@ export class AuthProvider {
       //Funktionierte bei Server 1.0
       //this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
       //Server aktuell:
-      this.http.post('http://localhost:3000/api/signup', JSON.stringify(credentials), {headers: headers})
+      this.http.post('api/signup', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
 
           let data = res.json();
