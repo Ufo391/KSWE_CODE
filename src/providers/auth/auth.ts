@@ -59,15 +59,29 @@ export class AuthProvider {
   }
 
   // Account anlegen (registrieren)
-  createAccount(details) {
+  createAccount(credentials: CredentialsModel) {
 
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/register', JSON.stringify(details), { headers: headers })
-        //this.http.post('TODO', JSON.stringify(details), {headers: headers})
+      //create: (POST http://localhost:3000/api/authenticate)
+      /*schicken:
+      {
+        "name": "Andreas",
+        "password": "pass"
+      }*/
+
+      /*bekommen:
+      {
+        "success": false,
+        "msg": "Successful created new user."
+      }*/
+      
+      //Web Example:
+      //this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/register', JSON.stringify(details), { headers: headers })
+      this.http.post('http://localhost:3000/api/authenticate', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
 
           let data = res.json();
@@ -95,13 +109,26 @@ export class AuthProvider {
 
     return new Promise((resolve, reject) => {
 
-      /* TODO Später JSON-Objekt mit allen Daten an den Server schicken
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      baut den JSON String:
-      JSON.stringify(credentials));*/
 
-      this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
+      //login: (POST http://localhost:3000/api/signup)
+      /*schicken:
+      {
+        "name": "Andreas",
+        "password": "pass"
+      }*/
+
+      /*bekommen:
+      {
+        "success": false,
+        "msg": "Authentication failed. Wrong password."
+      }*/
+
+      //Funktionierte bei Server 1.0
+      //this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
+      //Server aktuell:
+      this.http.post('http://localhost:3000/api/signup', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {
 
           let data = res.json();

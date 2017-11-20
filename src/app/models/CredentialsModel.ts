@@ -1,10 +1,10 @@
 export class CredentialsModel {
 
-    constructor(private email:string, private pass:string) {
+    constructor(private name:string, private pass:string) {
     }
 
     getEmail() {
-        return this.email;
+        return this.name;
     }
 
     getPass() {

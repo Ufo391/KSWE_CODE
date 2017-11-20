@@ -13,7 +13,7 @@ import { CredentialsModel } from '../../app/models/CredentialsModel';
 })
 export class LoginPage {
 
-	email: string;
+	name: string;
 	password: string;
 	loading: any;
 
@@ -36,13 +36,13 @@ export class LoginPage {
 		this.showLoader();
 
 		//Speichert die Anmeldedaten als Objekt.
-		let credentials = new CredentialsModel(this.email, this.password);
+		let credentials = new CredentialsModel(this.name, this.password);
 
 		this.authProvider.login(credentials).then((result: string) => {
 
 			this.loading.dismiss();
 
-			//Vergleicht, ob der Login-Vorgang erfolgreich war.
+			/*Vergleicht, ob der Login-Vorgang erfolgreich war.
 			if (result.toString() === "true") {
 				//TODO Zurück-Pfeil entfernen
 				//Logout hinzufügen
@@ -50,7 +50,9 @@ export class LoginPage {
 				this.navCtrl.push(ModePage);
 			} else {
 				this.giveAlert("Fehler!", "Falsche Login-Daten");
-			}
+			}*/
+
+			
 
 		}, (err) => {
 			//Keine Kommunikation zum Server möglich.

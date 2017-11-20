@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ModePage } from '../mode/mode';
+import { CredentialsModel } from '../../app/models/CredentialsModel';
 
 @IonicPage()
 @Component({
@@ -11,7 +12,7 @@ import { ModePage } from '../mode/mode';
 export class RegisterPage {
 
   //TODO email = uname ?
-  email: string;
+  name: string;
   password: string;
   loading: any;
 
@@ -26,12 +27,9 @@ export class RegisterPage {
 
     this.showLoader();
 
-    let details = {
-      email: this.email,
-      password: this.password
-    };
+    let credentials = new CredentialsModel(this.name, this.password);
 
-    this.authService.createAccount(details).then((result) => {
+    this.authService.createAccount(credentials).then((result) => {
       this.loadingCtrl
       console.log(result);
       this.navCtrl.setRoot(ModePage);
