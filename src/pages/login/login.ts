@@ -6,6 +6,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
 import { CredentialsModel } from '../../app/models/CredentialsModel';
 import { ServerResponseModel } from '../../app/models/ServerResponseModel';
+import { SessionModel } from '../../app/models/SessionModel';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,11 @@ export class LoginPage {
 	}
 
 	ionViewDidLoad() {
+
+		let session: SessionModel = new SessionModel("Andreas", "doof");
+
+		this.authProvider.setToken(session);
+
 		//Checkt, ob die gespeicherte Session noch auf dem Server aktiv ist.
 		this.authProvider.checkAuthentication().then((res) => {
 			console.log("Noch angemeldet");
@@ -34,6 +40,40 @@ export class LoginPage {
 	}
 
 	login() {
+		//Zeigt JSON String an:
+		//this.authProvider.getToken().then((res:string) => {
+		//console.log(res.toString())
+
+		this.authProvider.getToken().then((res:SessionModel) => {
+			if (res == null) {
+				console.log("doof gelaufen");
+			} else {
+				//console.log("Als JSON String: " + res)
+
+
+				/*interface MyObj {
+					name: string;
+					sessionID: string;
+					timeStamp: Date;
+				}
+				
+				let obj: MyObj = JSON.parse(res);
+				console.log('Nur Name: ' + obj.name);*/
+
+				console.log('Name: ' + res.getName());
+				console.log('SessionID: ' + res.getSessionID());
+				console.log('Age: ' + (res.getAge()/1000).toString());
+
+				/*
+				console.log("Session: " + res.getName() +
+					", " + res.getSessionID() +
+					", " + (res.getAge() / 1000).toString())*/
+			}
+		}, (err) => {
+			console.log("Doof Login Err");
+			this.loading.dismiss();
+		});
+
 		this.showLoader();
 
 		//Speichert die Anmeldedaten als Objekt.
@@ -73,8 +113,8 @@ export class LoginPage {
 		}, (err) => {
 			//Keine Kommunikation zum Server möglich.
 			this.loading.dismiss();
-			console.log(err);
-			this.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
+			console.log("Login Error: " + err.toString());
+			//this.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
 		});
 
 	}

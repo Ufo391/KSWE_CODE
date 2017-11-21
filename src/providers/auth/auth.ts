@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { AlertController } from 'ionic-angular';
 import { CredentialsModel } from '../../app/models/CredentialsModel';
+import { SessionModel } from '../../app/models/SessionModel';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -18,40 +19,36 @@ export class AuthProvider {
 
     return new Promise((resolve, reject) => {
 
-      this.nativeStorage.getItem('myitem')
-        .then(
-        data => console.log(data),
-        error => console.error(error)
-        );
+      /*
+    //Load token if exists
+    this.nativeStorage.getItem('token').then((data) => {
 
-      //Load token if exists
-      this.nativeStorage.getItem('token').then((data) => {
+      this.token = data;
 
-        this.token = data;
+      let headers = new Headers();
+      headers.append('Authorization', this.token);
 
-        let headers = new Headers();
-        headers.append('Authorization', this.token);
+      //this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/protected', { headers: headers })
+      //this.http.get('TODO', {headers: headers})
 
-        //this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/protected', { headers: headers })
-        //this.http.get('TODO', {headers: headers})
-
-        this.http.get('http://localhost:3000/login?password=pass&id=5')
-          //this.http.post('TODO PLATZHALTER', JSON.stringify(credentials), {headers: headers})
-          .subscribe(res => {
+      this.http.get('http://localhost:3000/login?password=pass&id=5')
+        //this.http.post('TODO PLATZHALTER', JSON.stringify(credentials), {headers: headers})
+        .subscribe(res => {
 
 
 
-            if (res[0] == 'true') {
-              resolve(data);
-            } else  { reject(); }
+          if (res[0] == 'true') {
+            resolve(data);
+          } else  { reject(); }
 
-          }, (err) => {
-            reject(err);
-          });
+        }, (err) => {
+          reject(err);
+        });
+        
 
-      },
-        error => console.error(error)
-      );
+    },
+      error => console.error(error)
+    );*/
 
     });
 
@@ -77,10 +74,10 @@ export class AuthProvider {
         "success": false,
         "msg": "Successful created new user."
       }*/
-      
+
       //Web Example:
       //this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/register', JSON.stringify(details), { headers: headers })
-      this.http.post('api/authenticate', JSON.stringify(credentials), {headers: headers})
+      this.http.post('api/authenticate', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
@@ -106,6 +103,22 @@ export class AuthProvider {
   // Speichert Session als Cookie im Storage ab
   login(credentials: CredentialsModel) {
 
+    //TODO löschen
+    /*this.nativeStorage.getItem('token').then(
+      data => {
+
+        class Iwas {
+          tokenValue: string;
+        }
+        let iwas: Iwas = data;
+        console.log("----- TokenValue: " + data)
+        console.log("----- TokenValue: " + iwas.tokenValue)
+
+
+      },
+      error => console.error(error)
+      );*/
+
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
@@ -127,27 +140,14 @@ export class AuthProvider {
       //Funktionierte bei Server 1.0
       //this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
       //Server aktuell:
-      this.http.post('api/signup', JSON.stringify(credentials), {headers: headers})
+      this.http.post('api/signup', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
 
-          //Hier kommt true oder false an:
-          console.log("returnData: " + data);
+          //Hier kam true oder false an:
+          //console.log("returnData: " + data);
 
-          //TODO Session ID im Storage speichern (funktioniert noch nicht)
-          this.nativeStorage.setItem('token', { tokenValue: "hallo" })
-            .then(
-            () => console.log('Stored login token!'),
-            error => console.error('Error storing login token!', error)
-            );
-
-          //Zum Testen auslesen
-          /*this.nativeStorage.getItem('token').then((datas) => {
-            this.debugAusgabe("TokenValue", datas);
-          },
-            error => console.error(error)
-          );*/
 
           resolve(data);
         }, (err) => {
@@ -168,4 +168,41 @@ export class AuthProvider {
       );
   }
 
+  //Speichert eine Session als Token im nativen Speicher
+  setToken(session: SessionModel) {
+    this.nativeStorage.setItem('StarDuellToken', JSON.stringify(session))
+      .then(
+      () => console.log('----- Stored login token!'),
+      error => console.error('----- Error storing login token!', error)
+      );
+  }
+
+  //Liest die gespeicherte Session aus dem nativen Speicher aus
+  getToken() {
+    return new Promise((resolve, reject) => {
+
+      this.nativeStorage.getItem('StarDuellToken').then(
+        data => {
+          console.log("----- Found login token!")
+
+          interface SessionInterface {
+            name: string;
+            sessionID: string;
+            timeStamp: number;
+          }
+
+          let tempSession: SessionInterface = JSON.parse(data);
+          let session: SessionModel = new SessionModel(tempSession.name, tempSession.sessionID);
+          session.setTimeStamp(tempSession.timeStamp);
+          resolve(session);
+        },
+        error => {
+          console.error('----- Error while searching for login token!', error)
+          reject(error);
+        }
+      );
+
+    });
+
+  }
 }
