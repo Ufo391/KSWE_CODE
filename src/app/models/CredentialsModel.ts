@@ -1,6 +1,10 @@
+// This class stores and  provides the login information.
 export class CredentialsModel {
 
-    constructor(private name:string, private pass:string) {
+    private name:string;
+    private pass:string;
+
+    constructor(name:string, pass:string) {
     }
 
     getName() {

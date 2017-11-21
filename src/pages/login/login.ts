@@ -23,11 +23,7 @@ export class LoginPage {
 	}
 
 	ionViewDidLoad() {
-
-		let session: SessionModel = new SessionModel("Andreas", "doof");
-
-		this.authProvider.setToken(session);
-
+		/*
 		//Checkt, ob die gespeicherte Session noch auf dem Server aktiv ist.
 		this.authProvider.checkAuthentication().then((res) => {
 			console.log("Noch angemeldet");
@@ -37,66 +33,48 @@ export class LoginPage {
 			console.log("Nicht mehr angemeldet");
 			this.loading.dismiss();
 		});
-	}
-
-	login() {
-		//Zeigt JSON String an:
-		//this.authProvider.getToken().then((res:string) => {
-		//console.log(res.toString())
-
-		this.authProvider.getToken().then((res:SessionModel) => {
+		
+		// Session aus dem Native Storage auslesen:
+		this.authProvider.getToken().then((res: SessionModel) => {
 			if (res == null) {
-				console.log("doof gelaufen");
+				console.log(res.getSessionID());
 			} else {
-				//console.log("Als JSON String: " + res)
-
-
-				/*interface MyObj {
-					name: string;
-					sessionID: string;
-					timeStamp: Date;
-				}
-				
-				let obj: MyObj = JSON.parse(res);
-				console.log('Nur Name: ' + obj.name);*/
-
-				console.log('Name: ' + res.getName());
-				console.log('SessionID: ' + res.getSessionID());
-				console.log('Age: ' + (res.getAge()/1000).toString());
-
-				/*
-				console.log("Session: " + res.getName() +
-					", " + res.getSessionID() +
-					", " + (res.getAge() / 1000).toString())*/
 			}
 		}, (err) => {
 			console.log("Doof Login Err");
 			this.loading.dismiss();
 		});
+		*/
+	}
 
+	// Auf dem Server anmelden. Ruft die login Methode vom authProvider mit den Login-Daten auf.
+	// Bekommt vom authProvider die ServerResponse und reagiert auf diese.
+	login() {
+		console.log("StarDuell: Login auf dem Server.");
+		// Ladebalken anzeigen
 		this.showLoader();
 
-		//Speichert die Anmeldedaten als Objekt.
+		// Speichert die Anmeldedaten als Objekt.
 		let credentials = new CredentialsModel(this.name, this.password);
 
+		// Versucht sich auf dem Server anzumelden.
 		this.authProvider.login(credentials).then((result: ServerResponseModel) => {
 
+			// Ladebalken auflösen
 			this.loading.dismiss();
-
-			/*Vergleicht, ob der Login-Vorgang erfolgreich war.
-			if (result.toString() === "true") {
-				//TODO Zurück-Pfeil entfernen
-				//Logout hinzufügen
-				this.navCtrl.setRoot(ModePage);
-				this.navCtrl.push(ModePage);
-			} else {
-				this.giveAlert("Fehler!", "Falsche Login-Daten");
-			}*/
 
 			let serverResponse = result;
 
+			// Server Response auswerten
 			if (serverResponse.succeed()) {
 				if (serverResponse.getMsg() === "TODO Msg-Typen vom Server unterscheiden.") {
+					console.log("StarDuell: Erfolgreich auf dem Server angemeldet.");
+
+					// TODO Session speichern
+					/*let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getSessionID());
+					this.authProvider.setToken(session);
+					console.log("StarDuell: SessionID lautet:" + sessionStorage.getSessionID());*/
+
 					this.navCtrl.setRoot(ModePage);
 					this.navCtrl.push(ModePage);
 				} else {
@@ -104,6 +82,7 @@ export class LoginPage {
 				}
 			} else {
 				if (serverResponse.getMsg() === "Authentication failed. Wrong password.") {
+					console.error("StarDuell: Falsche Login-Daten.");
 					this.giveAlert("Fehler!", "Falsche Login-Daten");
 				} else {
 
@@ -113,12 +92,13 @@ export class LoginPage {
 		}, (err) => {
 			//Keine Kommunikation zum Server möglich.
 			this.loading.dismiss();
-			console.log("Login Error: " + err.toString());
-			//this.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
+			console.error("StarDuell: Kommunikationsfehler: " + err.toString());
+			this.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
 		});
 
 	}
 
+	// Zeigt einen Anmeldeprozess grafisch dar. (Wartezeit)
 	showLoader() {
 		this.loading = this.loadingCtrl.create({
 			content: 'Authenticating...'
@@ -127,6 +107,7 @@ export class LoginPage {
 		this.loading.present();
 	}
 
+	// Ruft eine Dialogbox mit einem Hinweistext auf.
 	giveAlert(titel: string, text: string) {
 		let alert = this.alertCtrl.create({
 			title: titel,

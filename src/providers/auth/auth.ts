@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { AlertController } from 'ionic-angular';
 import { CredentialsModel } from '../../app/models/CredentialsModel';
-import { SessionModel } from '../../app/models/SessionModel';
+import { SessionModel, SessionInterface } from '../../app/models/SessionModel';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -17,9 +17,8 @@ export class AuthProvider {
   // Checken, ob die zuletzt gespeicherte Session noch aktiv ist.
   checkAuthentication() {
 
-    return new Promise((resolve, reject) => {
+    /*return new Promise((resolve, reject) => {
 
-      /*
     //Load token if exists
     this.nativeStorage.getItem('token').then((data) => {
 
@@ -48,9 +47,9 @@ export class AuthProvider {
 
     },
       error => console.error(error)
-    );*/
+    );
 
-    });
+    });*/
 
   }
 
@@ -77,17 +76,12 @@ export class AuthProvider {
 
       //Web Example:
       //this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/register', JSON.stringify(details), { headers: headers })
+
+      console.log("StarDuell: Starte Anfrage auf: api/authenticate");
       this.http.post('api/authenticate', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
           let data = res.json();
-          this.token = data.token;
-
-          this.nativeStorage.setItem('token', { tokenValue: data.token })
-            .then(
-            () => console.log('Stored login token!'),
-            error => console.error('Error storing login token!', error)
-            );
 
           resolve(data);
 
@@ -99,33 +93,17 @@ export class AuthProvider {
 
   }
 
-  // Auf dem Server anmelden
-  // Speichert Session als Cookie im Storage ab
+  // Auf dem Server anmelden. Gibt die Server Response zurück.
   login(credentials: CredentialsModel) {
-
-    //TODO löschen
-    /*this.nativeStorage.getItem('token').then(
-      data => {
-
-        class Iwas {
-          tokenValue: string;
-        }
-        let iwas: Iwas = data;
-        console.log("----- TokenValue: " + data)
-        console.log("----- TokenValue: " + iwas.tokenValue)
-
-
-      },
-      error => console.error(error)
-      );*/
 
     return new Promise((resolve, reject) => {
 
+      // Anfrage als Typ JSON-Object festlegen.
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      //login: (POST http://localhost:3000/api/signup)
-      /*schicken:
+      // login: (POST http://localhost:3000/api/signup)
+      /* schicken:
       {
         "name": "Andreas",
         "password": "pass"
@@ -137,9 +115,11 @@ export class AuthProvider {
         "msg": "Authentication failed. Wrong password."
       }*/
 
-      //Funktionierte bei Server 1.0
-      //this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
-      //Server aktuell:
+      // Funktionierte bei Server 1.0
+      // this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
+      // Server aktuell:
+      // Übermittelt die Login-Daten zum Server. Gibt die Antwort des Servers zurück.
+      console.log("StarDuell: Starte Anfrage auf: api/signup");
       this.http.post('api/signup', JSON.stringify(credentials), { headers: headers })
         .subscribe(res => {
 
@@ -147,7 +127,6 @@ export class AuthProvider {
 
           //Hier kam true oder false an:
           //console.log("returnData: " + data);
-
 
           resolve(data);
         }, (err) => {
@@ -160,44 +139,36 @@ export class AuthProvider {
   // Vom Server abmelden
   // Löscht Session Cookie vom Storage
   logout() {
-    // TODO Vom Server abmelden
-    this.nativeStorage.setItem('token', { tokenValue: '' })
-      .then(
-      () => console.log('Reset login token!'),
-      error => console.error('Error resetting login token!', error)
-      );
   }
 
-  //Speichert eine Session als Token im nativen Speicher
+  // Speichert eine Session als Token im nativen Speicher.
   setToken(session: SessionModel) {
     this.nativeStorage.setItem('StarDuellToken', JSON.stringify(session))
       .then(
-      () => console.log('----- Stored login token!'),
-      error => console.error('----- Error storing login token!', error)
+      () => console.log("StarDuell: Session Cookie wurde gespeichert."),
+      error => console.error("StarDuell: Session Cookie wurde nicht gespeichert: ", error)
       );
   }
 
-  //Liest die gespeicherte Session aus dem nativen Speicher aus
+  // Liest die gespeicherte Session aus dem nativen Speicher aus und gibt sie zurück.
   getToken() {
     return new Promise((resolve, reject) => {
 
+      // Session Daten aus dem Speicher auslesen.
       this.nativeStorage.getItem('StarDuellToken').then(
         data => {
-          console.log("----- Found login token!")
+          console.log("StarDuell: Session Cookie wurde gefunden.")
 
-          interface SessionInterface {
-            name: string;
-            sessionID: string;
-            timeStamp: number;
-          }
-
+          // JSON String parsen.
           let tempSession: SessionInterface = JSON.parse(data);
+          // SessionModel-Object erstellen.
           let session: SessionModel = new SessionModel(tempSession.name, tempSession.sessionID);
           session.setTimeStamp(tempSession.timeStamp);
+          // SessionModel zurückgeben.
           resolve(session);
         },
         error => {
-          console.error('----- Error while searching for login token!', error)
+          console.error("StarDuell: Session Cookie wurde nicht gefunden: ", error)
           reject(error);
         }
       );

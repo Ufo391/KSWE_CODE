@@ -1,3 +1,11 @@
+// The Interface is needed for parsing a Json-string into an object with the same information as SessionModel.
+export interface SessionInterface{
+    name: string;
+    sessionID: string;
+    timeStamp: number;
+}
+
+// This class stores and provides all the session information.
 export class SessionModel {
 
     private timeStamp: number;

@@ -20,12 +20,11 @@ export class RegisterPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
   }
 
   register() {
 
-    this.showLoader();
+    /*this.showLoader();
 
     let credentials = new CredentialsModel(this.name, this.password);
 
@@ -35,7 +34,7 @@ export class RegisterPage {
       this.navCtrl.setRoot(ModePage);
     }, (err) => {
       this.loading.dismiss();
-    });
+    });*/
 
   }
 
