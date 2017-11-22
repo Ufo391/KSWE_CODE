@@ -5,6 +5,7 @@ import { AlertController } from 'ionic-angular';
 import { CredentialsModel } from '../../app/models/CredentialsModel';
 import { SessionModel, SessionInterface } from '../../app/models/SessionModel';
 import 'rxjs/add/operator/map';
+import { ServerResponseInterface, ServerResponseModel } from '../../app/models/ServerResponseModel';
 
 @Injectable()
 export class AuthProvider {
@@ -54,36 +55,24 @@ export class AuthProvider {
   }
 
   // Account anlegen (registrieren)
-  createAccount(credentials: CredentialsModel) {
+  register(credentials: CredentialsModel) {
 
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      //create: (POST http://localhost:3000/api/authenticate)
-      /*schicken:
-      {
-        "name": "Andreas",
-        "password": "pass"
-      }*/
+      console.log("StarDuell: Starte Anfrage auf: api/signup");
+      // TODO Credentials dynamisch übermitteln
+      this.http.post('api/signup', { name: "Hans", password: "Wurst" }, { headers: headers })
+        .subscribe(data => {
 
-      /*bekommen:
-      {
-        "success": false,
-        "msg": "Successful created new user."
-      }*/
-
-      //Web Example:
-      //this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/register', JSON.stringify(details), { headers: headers })
-
-      console.log("StarDuell: Starte Anfrage auf: api/authenticate");
-      this.http.post('api/authenticate', JSON.stringify(credentials), { headers: headers })
-        .subscribe(res => {
-
-          let data = res.json();
-
-          resolve(data);
+          // JSON String parsen.
+          let tempResponse: ServerResponseInterface = JSON.parse(JSON.stringify(data.json()));
+          // ServerResponseModel-Object erstellen.
+          let response: ServerResponseModel = new ServerResponseModel(tempResponse.success, tempResponse.msg);
+          // SessionModel zurückgeben.
+          resolve(response);
 
         }, (err) => {
           reject(err);
@@ -102,33 +91,19 @@ export class AuthProvider {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      // login: (POST http://localhost:3000/api/signup)
-      /* schicken:
-      {
-        "name": "Andreas",
-        "password": "pass"
-      }*/
-
-      /*bekommen:
-      {
-        "success": false,
-        "msg": "Authentication failed. Wrong password."
-      }*/
-
-      // Funktionierte bei Server 1.0
-      // this.http.get(this.server + 'login?password=' + credentials.getPass() + '&id=' + credentials.getEmail(), {})
-      // Server aktuell:
+      console.log("StarDuell: Starte Anfrage auf: api/authenticate");
       // Übermittelt die Login-Daten zum Server. Gibt die Antwort des Servers zurück.
-      console.log("StarDuell: Starte Anfrage auf: api/signup");
-      this.http.post('api/signup', JSON.stringify(credentials), { headers: headers })
-        .subscribe(res => {
+      // TODO Credentials dynamisch übermitteln
+      this.http.post('api/authenticate', { name: "Hans", password: "Wurst" }, { headers: headers })
+        .subscribe(data => {
 
-          let data = res.json();
+          // JSON String parsen.
+          let tempResponse: ServerResponseInterface = JSON.parse(JSON.stringify(data.json()));
+          // ServerResponseModel-Object erstellen.
+          let response: ServerResponseModel = new ServerResponseModel(tempResponse.success, tempResponse.msg);
+          // SessionModel zurückgeben.
+          resolve(response);
 
-          //Hier kam true oder false an:
-          //console.log("returnData: " + data);
-
-          resolve(data);
         }, (err) => {
           reject(err);
         });
@@ -139,6 +114,7 @@ export class AuthProvider {
   // Vom Server abmelden
   // Löscht Session Cookie vom Storage
   logout() {
+    this.nativeStorage.remove("StarDuellToken");
   }
 
   // Speichert eine Session als Token im nativen Speicher.

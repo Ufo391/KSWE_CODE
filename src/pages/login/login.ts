@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { ModePage } from '../mode/mode';
 import { AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
 import { CredentialsModel } from '../../app/models/CredentialsModel';
 import { ServerResponseModel } from '../../app/models/ServerResponseModel';
 import { SessionModel } from '../../app/models/SessionModel';
@@ -28,7 +27,7 @@ export class LoginPage {
 		this.authProvider.checkAuthentication().then((res) => {
 			console.log("Noch angemeldet");
 			this.loading.dismiss();
-			this.navCtrl.setRoot(HomePage);
+			this.navCtrl.setRoot(ModePage);
 		}, (err) => {
 			console.log("Nicht mehr angemeldet");
 			this.loading.dismiss();
@@ -50,7 +49,7 @@ export class LoginPage {
 	// Auf dem Server anmelden. Ruft die login Methode vom authProvider mit den Login-Daten auf.
 	// Bekommt vom authProvider die ServerResponse und reagiert auf diese.
 	login() {
-		console.log("StarDuell: Login auf dem Server.");
+		console.log("StarDuell: Anmeldeversuch auf dem Server.");
 		// Ladebalken anzeigen
 		this.showLoader();
 
@@ -67,25 +66,27 @@ export class LoginPage {
 
 			// Server Response auswerten
 			if (serverResponse.succeed()) {
-				if (serverResponse.getMsg() === "TODO Msg-Typen vom Server unterscheiden.") {
-					console.log("StarDuell: Erfolgreich auf dem Server angemeldet.");
+				console.log("StarDuell: Erfolgreich auf dem Server angemeldet.");
 
-					// TODO Session speichern
-					/*let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getSessionID());
-					this.authProvider.setToken(session);
-					console.log("StarDuell: SessionID lautet:" + sessionStorage.getSessionID());*/
+				// Session speichern
+				let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getMsg());
+				this.authProvider.setToken(session);
+				console.log("StarDuell: SessionID lautet:" + session.getSessionID());
 
-					this.navCtrl.setRoot(ModePage);
-					this.navCtrl.push(ModePage);
-				} else {
+				// Anmeldebereich verlassen
+				this.navCtrl.setRoot(ModePage);
+				this.navCtrl.push(ModePage);
 
-				}
 			} else {
 				if (serverResponse.getMsg() === "Authentication failed. Wrong password.") {
-					console.error("StarDuell: Falsche Login-Daten.");
-					this.giveAlert("Fehler!", "Falsche Login-Daten");
-				} else {
-
+					console.error("StarDuell: Falsches Passwort.");
+					this.giveAlert("Fehler!", "Falsches Passwort");
+				} else if (serverResponse.getMsg() === "User not found.") {
+					console.error("StarDuell: Benutzer nicht gefunden.");
+					this.giveAlert("Fehler!", "Der Benutzer konnte nicht gefunden werden.");
+				}
+				else {
+					console.log("StarDuell: Login: Success false, Msg: " + serverResponse.getMsg());
 				}
 			}
 
