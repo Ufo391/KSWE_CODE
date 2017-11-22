@@ -5,14 +5,64 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>options</ion-title>
-  </ion-navbar>
-
+	<ion-toolbar id="toolbar">
+		<button ion-button menuToggle left>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>
+      Options
+		</ion-title>
+		<button ion-button right (click)="logout()">
+			<ion-icon name="power" end></ion-icon>
+		</button>
+	</ion-toolbar>  
 </ion-header>
 
 
 <ion-content padding>
+	<ion-list>
+		<div id="selections">
+		<ion-item>
+			<ion-label>Genre</ion-label>
+			<ion-select [(ngModel)]="genre">
+				<ion-option value="jazz">Jazz</ion-option>
+				<ion-option value="funk">Funk</ion-option>
+      			<ion-option value="hiphop">Hip Hop</ion-option>
+      			<ion-option value="blues">Blues</ion-option>
+      			<ion-option value="raggae">Reggae</ion-option>
+      			<ion-option value="house">House</ion-option>
+      		</ion-select>
+      	</ion-item>
 
+      	<ion-item>
+      		<ion-label>Subject</ion-label>
+			<ion-select [(ngModel)]="subject">
+				<ion-option value="love">Love</ion-option>
+				<ion-option value="hate">Hate</ion-option>
+      		</ion-select>
+      	</ion-item>
+
+      	<ion-item>
+			<ion-label>Instrumental</ion-label>
+			<ion-select [(ngModel)]="instrumental">
+				<ion-option value="coming">coming</ion-option>
+				<ion-option value="soon">soon</ion-option>
+      		</ion-select>
+      	</ion-item>
+
+      	<ion-item>
+			<ion-label>Time</ion-label>
+			<ion-select [(ngModel)]="time">
+				<ion-option value="sec15">0:15</ion-option>
+				<ion-option value="sec30">0:30</ion-option>
+				<ion-option value="sec45">0:45</ion-option>
+				<ion-option value="sec60">1:00</ion-option>				
+      		</ion-select>
+      	</ion-item>
+
+      	<ion-item>
+			<button ion-button full>Start</button>
+		</ion-item>
+      </div>
+  </ion-list>
 </ion-content>

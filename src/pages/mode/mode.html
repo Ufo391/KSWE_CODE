@@ -5,21 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Mode Select</ion-title>
-  </ion-navbar>
-
+	<ion-toolbar id="toolbar">
+		<button ion-button menuToggle left>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>
+			Mode select
+		</ion-title>
+		<button ion-button right (click)="logout()">
+			<ion-icon name="power" end></ion-icon>
+		</button>
+	</ion-toolbar>  
 </ion-header>
 
-
 <ion-content padding>
-
 	<div id="modeButtons">
 		<button ion-button color="light" round full (click)="openOptions()">Record</button>
 		<button ion-button round full (click)="openOptions()">Duel</button>
 		<button ion-button color="secondary" round full (click)="openArchive()">Archive</button>
 		<button ion-button color="danger" round full>Judge</button>
 	</div>
-
 </ion-content>

@@ -22,4 +22,9 @@ export class OptionsPage {
     console.log('ionViewDidLoad OptionsPage');
   }
 
+  logout() {
+    this.navCtrl.popToRoot();
+
+  }
+
 }

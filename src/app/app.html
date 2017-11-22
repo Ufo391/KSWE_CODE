@@ -1,1 +1,9 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+
+<ion-content padding>
+    <ion-searchbar></ion-searchbar>
+</ion-content>
+
+</ion-menu>
+<ion-nav [root]="rootPage" #content></ion-nav>
+
