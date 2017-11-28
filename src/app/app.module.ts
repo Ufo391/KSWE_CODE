@@ -12,7 +12,8 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
 import { OptionsPage } from '../pages/options/options'; 
-import { ArchivePage } from '../pages/archive/archive'; 
+import { ArchivePage } from '../pages/archive/archive';
+import { ProfilePage } from '../pages/profile/profile';
 
 
 
@@ -25,7 +26,8 @@ import { ArchivePage } from '../pages/archive/archive';
     RegisterPage,
     ModePage,
     OptionsPage,
-    ArchivePage
+    ArchivePage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { ArchivePage } from '../pages/archive/archive';
     RegisterPage,
     ModePage,
     OptionsPage,
-    ArchivePage
+    ArchivePage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
@@ -48,6 +51,7 @@ import { ArchivePage } from '../pages/archive/archive';
   ]
 })
 export class AppModule {
+
 
 }
 

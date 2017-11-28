@@ -1,9 +1,21 @@
 page-options {
 	#selections {
-		flex-direction: row;
 		display: block;
 		margin: auto;
-		width: 40%;
+		width: auto;
+	}
+
+	#toolbar {
+		text-align: center;
+	}
+
+	#logoutBtn {
+		float: right;
+	}
+
+	#title {
+		margin: auto;
+		margin-top: 10px;
 	}
 
 }

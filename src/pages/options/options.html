@@ -9,17 +9,21 @@
 		<button ion-button menuToggle left>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>
-      Options
-		</ion-title>
-		<button ion-button right (click)="logout()">
-			<ion-icon name="power" end></ion-icon>
-		</button>
+		<div id="logoutBtn">
+			<button ion-button right (click)="logout()">
+				<ion-icon name="power" ios="ios-power" end></ion-icon>
+			</button>
+		</div>
+		<div id="title">
+			<ion-title>
+				Options
+			</ion-title>
+		</div>
 	</ion-toolbar>  
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="no-scroll">
 	<ion-list>
 		<div id="selections">
 		<ion-item>

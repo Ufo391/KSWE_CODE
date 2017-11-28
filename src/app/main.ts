@@ -5,4 +5,5 @@ import { ModePage } from '../pages/mode/mode';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 
+
     
