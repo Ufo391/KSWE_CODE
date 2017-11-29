@@ -7,16 +7,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
 import { MyApp } from './app.component';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
 import { OptionsPage } from '../pages/options/options'; 
 import { ArchivePage } from '../pages/archive/archive';
+import { AuthProvider } from '../providers/auth/auth';
+import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
-
-
-
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { ProfilePage } from '../pages/profile/profile';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,9 +46,11 @@ import { ProfilePage } from '../pages/profile/profile';
     ProfilePage
   ],
   providers: [
+    NativeStorage,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider
   ]
 })
 export class AppModule {
