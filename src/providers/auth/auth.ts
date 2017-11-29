@@ -63,8 +63,8 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json');
 
       console.log("StarDuell: Starte Anfrage auf: api/signup");
-      // TODO Credentials dynamisch übermitteln
-      this.http.post('api/signup', { name: "Hans", password: "Wurst" }, { headers: headers })
+      // Übermittelt die Registrier-Daten zum Server. Gibt die Antwort des Servers zurück.
+      this.http.post('api/signup', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.
@@ -93,8 +93,7 @@ export class AuthProvider {
 
       console.log("StarDuell: Starte Anfrage auf: api/authenticate");
       // Übermittelt die Login-Daten zum Server. Gibt die Antwort des Servers zurück.
-      // TODO Credentials dynamisch übermitteln
-      this.http.post('api/authenticate', { name: "Hans", password: "Wurst" }, { headers: headers })
+      this.http.post('api/authenticate', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.

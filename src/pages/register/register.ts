@@ -45,30 +45,26 @@ export class RegisterPage {
       let serverResponse = result;
 
       // Server Response auswerten
-      if (serverResponse.succeed()) {
-        if (serverResponse.getMsg() === "Successful created new user.") {
-          console.log("StarDuell: Erfolgreich neuen Benutzer erstellt.");
+      if (serverResponse.getMsg() === "User created.") {
+        console.log("StarDuell: Erfolgreich neuen Benutzer erstellt.");
 
-          // TODO Session speichern
-					/*let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getMsg());
-					this.authProvider.setToken(session);
-					console.log("StarDuell: SessionID lautet:" + session.getSessionID());*/
+        // TODO Session speichern
+        /*let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getMsg());
+        this.authProvider.setToken(session);
+        console.log("StarDuell: SessionID lautet:" + session.getSessionID());*/
 
-          // Anmeldebereich verlassen
-          this.navCtrl.setRoot(ModePage);
-          this.navCtrl.push(ModePage);
-        } else {
-          console.log("StarDuell: Register: Success true, Msg: " + serverResponse.getMsg());
-        }
+        // Anmeldebereich verlassen
+        this.navCtrl.setRoot(ModePage);
+        this.navCtrl.push(ModePage);
       } else {
         if (serverResponse.getMsg() === "Please pass name and password.") {
-          console.error("StarDuell: Register: Wrong POST api.");
-          this.giveAlert("Fehler!", "App-Fehler beim Registrier-Vorgang");
-        } else if (serverResponse.getMsg() === "TODO User exists already") {
+          console.error("StarDuell: Register: Wrong input data.");
+          this.giveAlert("Fehler!", "Falsche Eingabedaten. Geben Sie bitte in beide Felder etwas ein.");
+        } else if (serverResponse.getMsg() === "Name is assigned.") {
           console.log("StarDuell: Register: User exists already.");
           this.giveAlert("Fehler!", "Der User existiert bereits.");
         } else {
-          console.error("StarDuell: Register: Success false, Msg: " + serverResponse.getMsg());
+          console.error("StarDuell: Register: Msg: " + serverResponse.getMsg());
         }
       }
 
