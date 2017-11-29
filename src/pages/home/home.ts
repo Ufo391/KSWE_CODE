@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
+import { ModePage } from '../mode/mode';
 
 
 @Component({
@@ -20,6 +21,10 @@ export class HomePage {
 
   openRegister() {
   	this.navCtrl.push(RegisterPage);
+  }
+
+  forceLogin() {
+  	this.navCtrl.push(ModePage);
   }
 
 }
