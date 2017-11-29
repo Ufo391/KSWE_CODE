@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PopoverController } from 'ionic-angular';
+
 
 /**
  * Generated class for the ArchivePage page.
@@ -15,11 +17,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ArchivePage {
 
+	items: string[];	  
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ArchivePage');
+  }
+
+  logout() {
+    this.navCtrl.popToRoot();
+    
   }
 
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the OptionsPage page.
+ * Generated class for the ProfilePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,21 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-options',
-  templateUrl: 'options.html',
+  selector: 'page-profile',
+  templateUrl: 'profile.html',
 })
-export class OptionsPage {
+export class ProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OptionsPage');
-  }
-
-  logout() {
-    this.navCtrl.popToRoot();
-
+    console.log('ionViewDidLoad ProfilePage');
   }
 
 }

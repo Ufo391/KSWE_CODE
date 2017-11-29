@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 
 import { MyApp } from './app.component';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -14,7 +16,7 @@ import { OptionsPage } from '../pages/options/options';
 import { ArchivePage } from '../pages/archive/archive';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpModule } from '@angular/http';
-
+import { ProfilePage } from '../pages/profile/profile';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { HttpModule } from '@angular/http';
     RegisterPage,
     ModePage,
     OptionsPage,
-    ArchivePage
+    ArchivePage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { HttpModule } from '@angular/http';
     RegisterPage,
     ModePage,
     OptionsPage,
-    ArchivePage
+    ArchivePage,
+    ProfilePage
   ],
   providers: [
     NativeStorage,
@@ -49,4 +53,8 @@ import { HttpModule } from '@angular/http';
     AuthProvider
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+
+}
+
