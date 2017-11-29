@@ -5,14 +5,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
 import { OptionsPage } from '../pages/options/options'; 
-import { ArchivePage } from '../pages/archive/archive'; 
-
-
+import { ArchivePage } from '../pages/archive/archive';
+import { AuthProvider } from '../providers/auth/auth';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ArchivePage } from '../pages/archive/archive';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,9 +42,11 @@ import { ArchivePage } from '../pages/archive/archive';
     ArchivePage
   ],
   providers: [
+    NativeStorage,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider
   ]
 })
 export class AppModule {}
