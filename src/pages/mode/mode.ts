@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OptionsPage } from '../options/options';
 import { ArchivePage } from '../archive/archive';
-
-
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ModePage page.
@@ -37,6 +36,7 @@ export class ModePage {
   }
 
   logout() {
+    this.navCtrl.setRoot(HomePage);
 		this.navCtrl.popToRoot();		
   }
 
