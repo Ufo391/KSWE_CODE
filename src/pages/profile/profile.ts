@@ -22,4 +22,9 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
+  logout() {
+    this.navCtrl.setRoot(HomePage);     
+    this.navCtrl.popToRoot();   
+  }  
+
 }
