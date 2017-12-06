@@ -19,20 +19,39 @@ export class OptionsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera) {
   }
 
-  takeAPicture(){
-    let options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-    
-    this.camera.getPicture(options).then((imageData) => {
-     // imageData is either a base64 encoded string or a file URI
-     // If it's base64:
-     let base64Image = 'data:image/jpeg;base64,' + imageData;
+  takeAPicture() {
+
+    this.trigger().then((myBase64: string) => {
+
+      var img = new Image();
+      img.src = myBase64;
+      img.addEventListener('load', function () {
+        console.log("Size W: " + img.width.toString());
+        console.log("Size H: " + img.height.toString());
+      });
+
     }, (err) => {
-     // Handle error
+			console.error("takeAPicture(): ", err);
+		});
+
+  }
+
+  trigger(){
+    return new Promise((resolve, reject) => {
+
+      let options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      }
+
+      this.camera.getPicture(options).then((imageData) => {
+        let myBase64 = 'data:image/jpeg;base64,' + imageData;
+        resolve(myBase64);
+      }, (err) => {
+        reject(err);
+      });
     });
   }
 
