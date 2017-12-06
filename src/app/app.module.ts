@@ -15,6 +15,7 @@ import { ArchivePage } from '../pages/archive/archive';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ProfilePage } from '../pages/profile/profile';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    Camera
   ]
 })
 export class AppModule {
