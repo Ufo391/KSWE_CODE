@@ -12,7 +12,7 @@ export class AuthProvider {
 
   public token: any;
 
-  constructor(private http: Http, public nativeStorage: NativeStorage, public alertCtrl: AlertController) {
+  constructor(public http: Http, public nativeStorage: NativeStorage, public alertCtrl: AlertController) {
   }
 
   // Checken, ob die zuletzt gespeicherte Session noch aktiv ist.
@@ -61,10 +61,11 @@ export class AuthProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      headers.append('Access-Control-Allow-Origin', '*');
 
-      console.log("StarDuell: Starte Anfrage auf: api/signup");
+      console.log("StarDuell: Starte Anfrage auf: /signup");
       // Übermittelt die Registrier-Daten zum Server. Gibt die Antwort des Servers zurück.
-      this.http.post('api/signup', credentials, { headers: headers })
+      this.http.post('/signup', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.
@@ -90,20 +91,27 @@ export class AuthProvider {
       // Anfrage als Typ JSON-Object festlegen.
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      //headers.append ('Content-Type', 'application/x-www-form-urlencoded')
+      headers.append('Access-Control-Allow-Origin', '*');
 
-      console.log("StarDuell: Starte Anfrage auf: api/authenticate");
+      console.log("StarDuell: Starte Anfrage auf: /authenticate");
       // Übermittelt die Login-Daten zum Server. Gibt die Antwort des Servers zurück.
-      this.http.post('api/authenticate', credentials, { headers: headers })
+      // http://minden.froese-energieausholz.de:3000/api/authenticate
+      this.http.post('/authenticate', credentials, { headers: headers })
         .subscribe(data => {
 
+          console.log("1");
           // JSON String parsen.
           let tempResponse: ServerResponseInterface = JSON.parse(JSON.stringify(data.json()));
           // ServerResponseModel-Object erstellen.
           let response: ServerResponseModel = new ServerResponseModel(tempResponse.success, tempResponse.msg);
           // SessionModel zurückgeben.
+          console.log("2")
           resolve(response);
 
+          console.log("3 " + response);
         }, (err) => {
+          console.log("4 " + err);
           reject(err);
         });
 

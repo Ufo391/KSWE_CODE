@@ -16,6 +16,7 @@ export class HomePage {
   }
 
   openLogin() {
+    console.log("Hallo");
   	this.navCtrl.push(LoginPage);
   }
 

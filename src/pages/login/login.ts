@@ -64,6 +64,7 @@ export class LoginPage {
 			this.loading.dismiss();
 
 			let serverResponse = result;
+			console.log("Response: " + serverResponse);
 
 			// Server Response auswerten
 			if (serverResponse.getMsg().substring(0,3) === "JWT") {

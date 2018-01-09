@@ -7,8 +7,12 @@
   },
   "proxies": [
     {
-      "path": "/api",
-      "proxyUrl": "http://localhost:3000/api"
+      "path": "/authenticate",
+      "proxyUrl": "http://minden.froese-energieausholz.de:3000/api/authenticate"
+    },
+    {
+      "path": "/signup",
+      "proxyUrl": "http://minden.froese-energieausholz.de:3000/api/signup"
     }
   ]
 }
