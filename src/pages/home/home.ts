@@ -16,16 +16,11 @@ export class HomePage {
   }
 
   openLogin() {
-    console.log("Hallo");
   	this.navCtrl.push(LoginPage);
   }
 
   openRegister() {
   	this.navCtrl.push(RegisterPage);
-  }
-
-  forceLogin() {
-  	this.navCtrl.push(ModePage);
   }
 
 }

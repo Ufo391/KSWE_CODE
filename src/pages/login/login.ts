@@ -55,7 +55,6 @@ export class LoginPage {
 
 		// Speichert die Anmeldedaten als Objekt.
 		let credentials = new CredentialsModel(this.name, this.password);
-		console.log("NamePW: " + credentials.getName() + credentials.getPassword())
 
 		// Versucht sich auf dem Server anzumelden.
 		this.authProvider.login(credentials).then((result: ServerResponseModel) => {
@@ -64,7 +63,6 @@ export class LoginPage {
 			this.loading.dismiss();
 
 			let serverResponse = result;
-			console.log("Response: " + serverResponse);
 
 			// Server Response auswerten
 			if (serverResponse.getMsg().substring(0,3) === "JWT") {
@@ -73,7 +71,6 @@ export class LoginPage {
 				// Session speichern
 				let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getMsg());
 				this.authProvider.setToken(session);
-				console.log("StarDuell: SessionID lautet:" + session.getSessionID());
 
 				// Anmeldebereich verlassen
 				this.navCtrl.setRoot(ModePage);
