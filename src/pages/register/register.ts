@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth/auth';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModePage } from '../mode/mode';
+
+import { AuthProvider } from '../../providers/auth/auth';
+import { UtilitiesProvider } from '../../providers/utilities/utilities';
+
 import { CredentialsModel } from '../../app/models/CredentialsModel';
 import { ServerResponseModel } from '../../app/models/ServerResponseModel';
 //import { SessionModel } from '../../app/models/SessionModel';
@@ -14,12 +16,10 @@ import { ServerResponseModel } from '../../app/models/ServerResponseModel';
 })
 export class RegisterPage {
 
-  //TODO email = uname ?
   name: string;
   password: string;
-  loading: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthProvider, public utilities: UtilitiesProvider) {
   }
 
   ionViewDidLoad() {
@@ -31,7 +31,7 @@ export class RegisterPage {
 
     console.log("StarDuell: Registriere neuen Benutzer auf dem Server.");
     // Ladebalken anzeigen
-    this.showLoader();
+    this.utilities.showLoader();
 
     // Speichert die Registrierungsdaten als Objekt.
     let credentials = new CredentialsModel(this.name, this.password);
@@ -40,7 +40,7 @@ export class RegisterPage {
     this.authProvider.register(credentials).then((result: ServerResponseModel) => {
 
       // Ladebalken auflösen
-      this.loading.dismiss();
+      this.utilities.closeLoader();
 
       let serverResponse = result;
 
@@ -48,10 +48,7 @@ export class RegisterPage {
       if (serverResponse.getMsg() === "User created.") {
         console.log("StarDuell: Erfolgreich neuen Benutzer erstellt.");
 
-        // TODO Session speichern
-        /*let session: SessionModel = new SessionModel(credentials.getName(), serverResponse.getMsg());
-        this.authProvider.setToken(session);
-        console.log("StarDuell: SessionID lautet:" + session.getSessionID());*/
+        this.utilities.giveAlert("Registrierung", "Sie haben sich erfolgreich bei StarDuell registriert!");
 
         // Anmeldebereich verlassen
         this.navCtrl.setRoot(ModePage);
@@ -59,10 +56,10 @@ export class RegisterPage {
       } else {
         if (serverResponse.getMsg() === "Please pass name and password.") {
           console.error("StarDuell: Register: Wrong input data.");
-          this.giveAlert("Fehler!", "Falsche Eingabedaten. Geben Sie bitte in beide Felder etwas ein.");
+          this.utilities.giveAlert("Fehler!", "Falsche Eingabedaten. Geben Sie bitte in beide Felder etwas ein.");
         } else if (serverResponse.getMsg() === "Name is assigned.") {
           console.log("StarDuell: Register: User exists already.");
-          this.giveAlert("Fehler!", "Der User existiert bereits.");
+          this.utilities.giveAlert("Fehler!", "Der User existiert bereits.");
         } else {
           console.error("StarDuell: Register: Msg: " + serverResponse.getMsg());
         }
@@ -70,31 +67,11 @@ export class RegisterPage {
 
     }, (err) => {
       //Keine Kommunikation zum Server möglich.
-      this.loading.dismiss();
+      this.utilities.closeLoader();
       console.error("StarDuell: Kommunikationsfehler: " + err.toString());
-      this.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
+      this.utilities.giveAlert("Fehler!", "Keine Kommunikation mit dem Server");
     });
 
-  }
-
-  showLoader() {
-
-    this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
-    });
-
-    this.loading.present();
-
-  }
-
-  // Ruft eine Dialogbox mit einem Hinweistext auf.
-  giveAlert(titel: string, text: string) {
-    let alert = this.alertCtrl.create({
-      title: titel,
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
 }
