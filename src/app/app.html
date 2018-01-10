@@ -4,7 +4,12 @@
 <ion-content padding class="no-scroll">
     <ion-searchbar></ion-searchbar>
     <hr>
-    <button ion-button full outline="true" color="light">Profile</button>
+    <ion-list>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openProfile(p)">
+            <ion-icon item-start [name]="p.icon"></ion-icon>
+              Profile
+        </button>
+    </ion-list>
 </ion-content>
 
 </ion-menu>

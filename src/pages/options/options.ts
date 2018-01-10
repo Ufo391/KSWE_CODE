@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 //import * as io from 'socket.io-client';
@@ -18,10 +19,10 @@ import { File } from '@ionic-native/file';
 })
 export class OptionsPage {
 
+  // TODO löschen ----------------------------------------------------------------------------------------------------------------
   /*socket:any;
   chat_input:string;
   chats = [];*/
-
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private file: File) {
 
@@ -139,15 +140,5 @@ export class OptionsPage {
         reject(err);
       });
     });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OptionsPage');
-  }
-
-  logout() {
-    this.navCtrl.popToRoot();
-
-  }
 
 }

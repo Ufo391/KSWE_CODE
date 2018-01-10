@@ -59,6 +59,6 @@ import { UtilitiesProvider } from '../providers/utilities/utilities';
 })
 export class AppModule {
 
-
+  
 }
 

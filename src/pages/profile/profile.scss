@@ -13,4 +13,19 @@ page-profile {
 		margin-top: 10px;
 	}
 
+	#rating {
+		float: left;
+		margin-right: 15%;
+		margin-left: 10%;
+	}
+
+	#follower {
+		width: 40%;
+		float: left;
+	}
+
+	#line {
+		flex-direction: column;		
+	}
+
 }

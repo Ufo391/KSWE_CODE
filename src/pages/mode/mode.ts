@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OptionsPage } from '../options/options';
 import { ArchivePage } from '../archive/archive';
 import { HomePage } from '../home/home';
+import { ProfilePage } from '../profile/profile';
 
 import { UtilitiesProvider } from '../../providers/utilities/utilities';
 
@@ -34,6 +35,10 @@ export class ModePage {
     this.utilities.logout();
     this.navCtrl.setRoot(HomePage);
     this.navCtrl.popToRoot();
+  }
+
+  openProfile() {
+    this.navCtrl.push(ProfilePage);    
   }
 
 }
