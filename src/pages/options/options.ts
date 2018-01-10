@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 //import * as io from 'socket.io-client';
@@ -44,29 +43,29 @@ export class OptionsPage {
   } */
 
 
-  createFile(imgString){
-    
-    var img = new Image();
-      img.src = imgString;
-      img.addEventListener('load', (event) => {
-        console.log(1);
-        this.file.getFreeDiskSpace().then((value: number) =>{
-          console.log("2 - " + value);
-          if((img.height*img.width)/1000.0 < value){
-            console.log(3);
-            this.file.writeFile(this.file.applicationDirectory, "bild.jpg", imgString, {replace: true}).then(() =>{
-              console.log(4);
-              this.file.checkFile(this.file.applicationDirectory, "bild.jpg").then(_ => console.log('File exists')).catch(err => console.log('File doesnt exist'));
-            }), (err) => {console.log(5);};
-            
-          }
-        }, (err) => {
-          console.error("takeAPicture(): ", err);
-        });
+  createFile(imgString) {
 
+    var img = new Image();
+    img.src = imgString;
+    img.addEventListener('load', (event) => {
+      console.log(1);
+      this.file.getFreeDiskSpace().then((value: number) => {
+        console.log("2 - " + value);
+        if ((img.height * img.width) / 1000.0 < value) {
+          console.log(3);
+          this.file.writeFile(this.file.applicationDirectory, "bild.jpg", imgString, { replace: true }).then(() => {
+            console.log(4);
+            this.file.checkFile(this.file.applicationDirectory, "bild.jpg").then(_ => console.log('File exists')).catch(err => console.log('File doesnt exist'));
+          }), (err) => { console.log(5); };
+
+        }
+      }, (err) => {
+        console.error("takeAPicture(): ", err);
       });
 
-    
+    });
+
+
   };
 
   /*sendViaFtp(message: string) {
@@ -140,5 +139,6 @@ export class OptionsPage {
         reject(err);
       });
     });
+  }
 
 }

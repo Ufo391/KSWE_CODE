@@ -3,7 +3,6 @@ import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
 import { ModePage } from '../mode/mode';
-import { ProfilePage } from '../profile/profile';
 
 
 import { AuthProvider } from '../../providers/auth/auth';
