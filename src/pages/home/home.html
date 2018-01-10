@@ -1,15 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-title id="title" secondary>
       Starduell
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="no-scroll">
 	<div id="centerButtons">
 		<button ion-button full (click)="openLogin()">sign in</button>
-	
-		<button ion-button full (click)="openRegister()">sign up</button>
+    <button ion-button full (click)="openRegister()">sign up</button>
 	</div>
 </ion-content>

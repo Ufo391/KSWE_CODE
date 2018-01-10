@@ -1,1 +1,17 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content" ion-content scroll="false">
+
+
+<ion-content padding class="no-scroll">
+    <ion-searchbar></ion-searchbar>
+    <hr>
+    <ion-list>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openProfile(p)">
+            <ion-icon item-start [name]="p.icon"></ion-icon>
+              Profile
+        </button>
+    </ion-list>
+</ion-content>
+
+</ion-menu>
+<ion-nav [root]="rootPage" #content></ion-nav>
+

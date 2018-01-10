@@ -5,15 +5,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
-import { OptionsPage } from '../pages/options/options'; 
-import { ArchivePage } from '../pages/archive/archive'; 
-
-
-
+import { OptionsPage } from '../pages/options/options';
+import { ArchivePage } from '../pages/archive/archive';
+import { AuthProvider } from '../providers/auth/auth';
+import { HttpModule } from '@angular/http';
+import { ProfilePage } from '../pages/profile/profile';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { UtilitiesProvider } from '../providers/utilities/utilities';
 
 @NgModule({
   declarations: [
@@ -23,11 +27,13 @@ import { ArchivePage } from '../pages/archive/archive';
     RegisterPage,
     ModePage,
     OptionsPage,
-    ArchivePage
+    ArchivePage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,12 +43,22 @@ import { ArchivePage } from '../pages/archive/archive';
     RegisterPage,
     ModePage,
     OptionsPage,
-    ArchivePage
+    ArchivePage,
+    ProfilePage
   ],
   providers: [
+    NativeStorage,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthProvider,
+    Camera,
+    File,
+    UtilitiesProvider
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+  
+}
+

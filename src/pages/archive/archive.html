@@ -5,14 +5,40 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>archive</ion-title>
-  </ion-navbar>
-
+	<ion-navbar id="navbar">
+		<div id="logoutBtn">
+			<button ion-button right (click)="logout()">
+				<ion-icon name="power" end></ion-icon>
+			</button>
+		</div>
+		<div id="title">
+			<ion-title>
+				Archive
+			</ion-title>
+		</div>
+	</ion-navbar>  
 </ion-header>
 
-
-<ion-content padding>
+<ion-content class="no-scroll">
+	<ion-list>
+		<div id="label">
+			<h1>Videos</h1>
+		</div>
+		<div id="selection">
+			<ion-item>
+				<ion-label>Filter</ion-label>
+				<ion-select [(ngModel)]="filter">
+					<ion-option value="trends">Trends</ion-option>
+					<ion-option value="latest">Latest</ion-option>
+					<ion-option value="highRating">Highest Rating</ion-option>
+					<ion-option value="lowRating">Lowest Rating</ion-option>
+				</ion-select>
+			</ion-item>
+		</div>
+		<div style="clear:both"></div>		
+		<div id="line">
+			<hr>
+		</div>
+	</ion-list>
 
 </ion-content>

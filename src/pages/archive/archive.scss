@@ -1,3 +1,32 @@
 page-archive {
 
+	#toolbar {
+    text-align: center;
+  }
+  
+  #label {
+    float: left;
+    margin-right: 15%;
+    margin-left: 10%;
+  }
+
+  #selection {
+    width: 40%;
+    float: left;
+    margin-top: 10px;
+  }
+
+	#logoutBtn {
+		float: right;
+	}
+
+	#title {
+		margin: auto;
+		margin-top: 10px;
+  } 
+  
+  #line {
+    flex-direction: column;
+  }
+  
 }

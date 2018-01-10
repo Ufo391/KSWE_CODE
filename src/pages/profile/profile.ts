@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
+
 /**
- * Generated class for the ArchivePage page.
+ * Generated class for the ProfilePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,24 +12,25 @@ import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
-  selector: 'page-archive',
-  templateUrl: 'archive.html',
+  selector: 'page-profile',
+  templateUrl: 'profile.html',
 })
-export class ArchivePage {
-
-	items: string[];	  
+export class ProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ArchivePage');
+    console.log('ionViewDidLoad ProfilePage');
   }
 
   logout() {
-    this.navCtrl.setRoot(HomePage);    
-    this.navCtrl.popToRoot();
-    
+    this.navCtrl.setRoot(HomePage);     
+    this.navCtrl.popToRoot();   
+  } 
+  
+  openProfile() {
+    this.navCtrl.push(ProfilePage);    
   }
 
 }
