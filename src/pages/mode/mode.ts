@@ -5,12 +5,7 @@ import { ArchivePage } from '../archive/archive';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
 
-/**
- * Generated class for the ModePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { UtilitiesProvider } from '../../providers/utilities/utilities';
 
 @IonicPage()
 @Component({
@@ -19,9 +14,9 @@ import { ProfilePage } from '../profile/profile';
 })
 export class ModePage {
 
-	items: string[];	
+  items: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public utilities: UtilitiesProvider) {
   }
 
   ionViewDidLoad() {
@@ -29,16 +24,17 @@ export class ModePage {
   }
 
   openOptions() {
-  	this.navCtrl.push(OptionsPage);
+    this.navCtrl.push(OptionsPage);
   }
 
   openArchive() {
-  	this.navCtrl.push(ArchivePage);
+    this.navCtrl.push(ArchivePage);
   }
 
   logout() {
+    this.utilities.logout();
     this.navCtrl.setRoot(HomePage);
-		this.navCtrl.popToRoot();		
+    this.navCtrl.popToRoot();
   }
 
   openProfile() {

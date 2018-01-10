@@ -10,11 +10,14 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
-import { OptionsPage } from '../pages/options/options'; 
+import { OptionsPage } from '../pages/options/options';
 import { ArchivePage } from '../pages/archive/archive';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { UtilitiesProvider } from '../providers/utilities/utilities';
 
 @NgModule({
   declarations: [
@@ -47,8 +50,11 @@ import { ProfilePage } from '../pages/profile/profile';
     NativeStorage,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthProvider,
+    Camera,
+    File,
+    UtilitiesProvider
   ]
 })
 export class AppModule {
