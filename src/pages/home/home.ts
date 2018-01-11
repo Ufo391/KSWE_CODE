@@ -23,7 +23,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.utilities.showLoader();
-
     // Session aus dem Native Storage auslesen:
     this.authProvider.getToken().then((session: SessionModel) => {
       if (session.getSessionID() != "logout") {

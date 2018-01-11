@@ -18,6 +18,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { UtilitiesProvider } from '../providers/utilities/utilities';
+import { StorageProvider } from '../providers/storage/storage';
+import { MediaProvider } from '../providers/media/media';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { UtilitiesProvider } from '../providers/utilities/utilities';
     AuthProvider,
     Camera,
     File,
-    UtilitiesProvider
+    UtilitiesProvider,
+    StorageProvider,
+    MediaProvider
   ]
 })
 export class AppModule {

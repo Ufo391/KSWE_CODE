@@ -17,7 +17,8 @@ export class UtilitiesProvider {
   // Zeigt einen Anmeldeprozess grafisch dar. (Wartezeit)
   showLoader() {
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Authenticating...',
+      dismissOnPageChange: true
     });
 
     this.loading.present();

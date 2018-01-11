@@ -77,7 +77,8 @@ export class AuthProvider {
           // SessionModel zurückgeben.
           resolve(response);
 
-        }, (err) => {
+        }, (err: string) => {
+          console.error(err);
           reject(err);
         });
 
@@ -107,7 +108,8 @@ export class AuthProvider {
           // SessionModel zurückgeben.
           resolve(response);
 
-        }, (err) => {
+        }, (err: string) => {
+          console.error(err);
           reject(err);
         });
 
@@ -116,11 +118,11 @@ export class AuthProvider {
 
   // Speichert eine Session als Token im nativen Speicher.
   setToken(session: SessionModel) {
-    this.nativeStorage.setItem('StarDuellToken', JSON.stringify(session))
-      .then(
-      () => console.log("StarDuell: Session Cookie wurde gespeichert: " + session.getSessionID()),
-      error => console.error("StarDuell: Session Cookie wurde nicht gespeichert: ", error)
-      );
+    this.nativeStorage.setItem('StarDuellToken', JSON.stringify(session)).then(() => {
+        console.log("StarDuell: Session Cookie wurde gespeichert: " + session.getSessionID());
+      }, (err: string) => {
+        console.error(err);
+      });
   }
 
   // Liest die gespeicherte Session aus dem nativen Speicher aus und gibt sie zurück.
@@ -128,8 +130,7 @@ export class AuthProvider {
     return new Promise((resolve, reject) => {
 
       // Session Daten aus dem Speicher auslesen.
-      this.nativeStorage.getItem('StarDuellToken').then(
-        data => {
+      this.nativeStorage.getItem('StarDuellToken').then( data => {
           console.log("StarDuell: Session Cookie wurde gefunden.")
 
           // JSON String parsen.
@@ -139,14 +140,11 @@ export class AuthProvider {
           session.setTimeStamp(tempSession.timeStamp);
           // SessionModel zurückgeben.
           resolve(session);
-        },
-        error => {
-          console.error("StarDuell: Session Cookie wurde nicht gefunden: ", error)
-          reject(error);
+        }, (err: string) => {
+          console.error(err)
+          reject(err);
         }
       );
-
     });
-
   }
 }
