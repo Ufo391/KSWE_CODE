@@ -94,6 +94,23 @@ export class StorageProvider {
   deleteFile(path: string, filename: string) {
     return new Promise((resolve, reject) => {
 
+      this.fileExists(path + filename).then(() => {
+
+        this.file.removeFile(path, filename).then(() => {
+          console.error("Pfad: " + path + filename);
+          console.log("StarDuell: Datei erfolgreich gelöscht: " + filename);
+
+        }, (err: string) => {
+          console.error("Pfad: " + path + filename);
+          console.error(JSON.stringify(err).toString());
+          reject(err);
+        });
+
+      }, (err: string) => {
+        console.error(err);
+        reject(err);
+      });
+
 
     });
   }
@@ -126,11 +143,13 @@ export class StorageProvider {
 
           this.file.listDir(this.path, dir).then((listing) => {
             console.log("StarDuell: Verzeichnis erfolgreich ausgelesen.");
-            listing.forEach(element => {
-              console.error(element.name);
-            });
-            //--------------------------ALS VECTOR SPEICHERN
-            resolve();
+
+            var list: string[] = new Array();
+            for (var _i = 0; _i < listing.length; _i++) {
+              var temp: string = listing.pop().name;
+              list.push(temp);
+            }
+            resolve(list);
 
           }, (err) => {
             reject(err);

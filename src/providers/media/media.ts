@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { StorageProvider } from '../../providers/storage/storage';
+
+
 /*
   Plugin "Streaming Media"?
   Plugin "File Transfer"?
@@ -20,7 +23,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MediaProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public storage: StorageProvider) {
   }
 
   /*submitVideo(filename: string) {
@@ -43,13 +46,25 @@ export class MediaProvider {
     });
   }*/
 
-  /*
-  saveVideo(){
-    this.storage.getFileList( "www/Video/").then((abc) => {
-      console.log("----QWERTZ");
+  getVideo(){
+    var lastFile = "";
+
+    this.storage.getFileList( "www/Video/").then((entries: string[]) => {
+      entries.forEach(element => {
+        lastFile = element;
+        console.error(element);
+      });
+
+      this.storage.deleteFile("www/Video/", lastFile).then(() =>{
+        console.error("yuchee");
+      }, (err: string) =>{
+        console.error(err.toString());
+      });
     }, (err: string) => {
       console.log("----NOPE1" + err);
     });
-  }*/
+
+    
+  }
 
 }

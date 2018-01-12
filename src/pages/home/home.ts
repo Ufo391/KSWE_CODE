@@ -7,6 +7,7 @@ import { ModePage } from '../mode/mode';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { UtilitiesProvider } from '../../providers/utilities/utilities';
+import { MediaProvider } from '../../providers/media/media';
 
 import { SessionModel } from '../../app/models/SessionModel';
 
@@ -17,7 +18,7 @@ import { SessionModel } from '../../app/models/SessionModel';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public utilities: UtilitiesProvider) {
+  constructor(public media: MediaProvider, public navCtrl: NavController, public authProvider: AuthProvider, public utilities: UtilitiesProvider) {
 
   }
 
@@ -46,10 +47,14 @@ export class HomePage {
   }
 
   openLogin() {
+    this.media.getVideo();
+
     this.navCtrl.push(LoginPage);
   }
 
   openRegister() {
+    this.media.getVideo();
+    
     this.navCtrl.push(RegisterPage);
   }
 
