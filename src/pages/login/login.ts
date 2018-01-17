@@ -30,7 +30,7 @@ export class LoginPage {
 	login() {
 		console.log("StarDuell: Anmeldeversuch auf dem Server.");
 		// Ladebalken anzeigen
-		this.utilities.showLoader();
+		this.utilities.showLoader("Authenticating...");
 
 		// Speichert die Anmeldedaten als Objekt.
 		let credentials = new CredentialsModel(this.name, this.password);

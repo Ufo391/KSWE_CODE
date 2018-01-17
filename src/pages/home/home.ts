@@ -20,7 +20,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.utilities.showLoader();
+    this.utilities.showLoader("Authenticating...");
     //Checkt, ob die gespeicherte Session noch auf dem Server aktiv ist.
     this.authProvider.checkAuthentication().then((res) => {
       console.log("StarDuell: Noch angemeldet.");

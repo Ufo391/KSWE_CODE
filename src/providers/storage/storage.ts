@@ -48,7 +48,7 @@ export class StorageProvider {
     });
   }
 
-  // Liest die Datei vom Speicher ein.
+  /*// Liest die Datei vom Speicher ein.
   readFileAsBinary(filename: string) {
     return new Promise((resolve, reject) => {
       console.error("11")
@@ -67,9 +67,9 @@ export class StorageProvider {
         reject(err);
       });
     });
-  }
+  }*/
 
-  // Legt eine neue Datei auf dem Gerät an.
+  /*// Legt eine neue Datei auf dem Gerät an.
   createFile(path: string, filename: string, data: string) {
     return new Promise((resolve, reject) => {
       var fileSize = 1; //-------------------------------herausfinden
@@ -94,9 +94,9 @@ export class StorageProvider {
         reject(err);
       };
     });
-  }
+  }*/
 
-  // Löscht eine Datei auf dem Gerät.
+  /*// Löscht eine Datei auf dem Gerät.
   deleteFile(path: string, filename: string) {
     return new Promise((resolve, reject) => {
 
@@ -119,7 +119,7 @@ export class StorageProvider {
 
 
     });
-  }
+  }*/
 
   // Fragt ab, ob das Verzeichnis existiert.
   dirExists(dir: string) {

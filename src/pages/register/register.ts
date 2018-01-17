@@ -31,7 +31,7 @@ export class RegisterPage {
 
     console.log("StarDuell: Registriere neuen Benutzer auf dem Server.");
     // Ladebalken anzeigen
-    this.utilities.showLoader();
+    this.utilities.showLoader("Authenticating...");
 
     // Speichert die Registrierungsdaten als Objekt.
     let credentials = new CredentialsModel(this.name, this.password);

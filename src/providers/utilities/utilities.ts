@@ -16,17 +16,22 @@ export class UtilitiesProvider {
     public authProvider: AuthProvider) {
   }
 
-  // Zeigt einen Anmeldeprozess grafisch dar. (Wartezeit)
-  showLoader() {
+  // Ändert den Statustext des grafischen Prozesses.
+  setLoaderContent(text: string){
+    this.loading.setContent(text);
+  }
+
+  // Zeigt einen Prozess grafisch dar. (Wartezeit)
+  showLoader(text: string) {
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...',
+      content: text,
       dismissOnPageChange: true
     });
 
     this.loading.present();
   }
 
-  // Schließt den grafischen Anmeldeprozess.
+  // Schließt den grafischen Prozess.
   closeLoader() {
     this.loading.dismiss();
   }

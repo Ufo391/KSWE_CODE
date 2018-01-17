@@ -89,8 +89,8 @@ export class AuthProvider {
           // SessionModel zurückgeben.
           resolve(response);
 
-        }, (err: string) => {
-          console.error(err);
+        }, (err) => {
+          console.error(JSON.stringify(err).toString());
           reject(err);
         });
 
@@ -120,8 +120,8 @@ export class AuthProvider {
           // SessionModel zurückgeben.
           resolve(response);
 
-        }, (err: string) => {
-          console.error(err);
+        }, (err) => {
+          console.error(JSON.stringify(err).toString());
           reject(err);
         });
 
@@ -132,8 +132,8 @@ export class AuthProvider {
   setToken(session: SessionModel) {
     this.nativeStorage.setItem('StarDuellToken', JSON.stringify(session)).then(() => {
       console.log("StarDuell: Session Cookie wurde gespeichert: " + session.getSessionID());
-    }, (err: string) => {
-      console.error(err);
+    }, (err) => {
+      console.error(JSON.stringify(err).toString());
     });
   }
 
@@ -152,8 +152,8 @@ export class AuthProvider {
         session.setTimeStamp(tempSession.timeStamp);
         // SessionModel zurückgeben.
         resolve(session);
-      }, (err: string) => {
-        console.error(err)
+      }, (err) => {
+        console.error(JSON.stringify(err).toString())
         reject(err);
       }
       );

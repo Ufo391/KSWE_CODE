@@ -94,4 +94,5 @@
     <plugin name="cordova-plugin-camera" spec="~3.0.0" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="com.moust.cordova.videoplayer" spec="https://github.com/moust/cordova-plugin-videoplayer.git" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
 </widget>

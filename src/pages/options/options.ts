@@ -74,16 +74,6 @@ export class OptionsPage {
   }
 
   uploadVideo() {
-    this.storage.readFileAsBinary("www/Video/small.mp4").then((data: string) => {
-
-      this.media.uploadVideo(data).then((result: ServerResponseModel) => {
-        console.log("HalliHallo: " + result.getMsg());
-      }, (err) => {
-        console.error(JSON.stringify(err).toString());
-      });
-
-    }, (err) => {
-      console.error(JSON.stringify(err).toString());
-    });
+    this.media.uploadVideo("big.mp4");
   }
 }

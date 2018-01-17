@@ -18,6 +18,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { VideoPlayer } from '@ionic-native/video-player';
+import { FileTransfer} from '@ionic-native/file-transfer';
 import { UtilitiesProvider } from '../providers/utilities/utilities';
 import { StorageProvider } from '../providers/storage/storage';
 import { MediaProvider } from '../providers/media/media';
@@ -58,6 +59,7 @@ import { MediaProvider } from '../providers/media/media';
     Camera,
     File,
     VideoPlayer,
+    FileTransfer,
     UtilitiesProvider,
     StorageProvider,
     MediaProvider
