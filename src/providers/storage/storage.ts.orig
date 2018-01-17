@@ -13,19 +13,16 @@ export class StorageProvider {
 
   // Fragt ab, ob genug freier Speicher auf dem Gerät verfügbar ist.
   enoughSpace(size: number) {
-    return new Promise((resolve, reject) => {
-      //Promise
-      this.file.getFreeDiskSpace().then((value: number) => {
-        if (size > value) {
-          console.log("StarDuell: Datei ist zu groß, kann nicht gespeichert werden.");
-          resolve(false);
-        } else {
-          console.log("StarDuell: Genügend Speicher vorhanden, kann gespeichert werden.");
-          resolve(true);
-        }
-      }, (err) => {
-        reject(err);
-      });
+    this.file.getFreeDiskSpace().then((value: number) => {
+      if (size > value) {
+        console.log("StarDuell: Datei ist zu groß, kann nicht gespeichert werden.");
+        return false;
+      } else {
+        console.log("StarDuell: Genügend Speicher vorhanden, kann gespeichert werden.");
+        return true;
+      }
+    }, (err) => {
+      return false;
     });
   }
 
@@ -41,7 +38,7 @@ export class StorageProvider {
           reject("StarDuell: Datei existiert nicht");
         }
       }, (err: string) => {
-        console.error(JSON.stringify(err).toString());
+        console.error(err);
         reject(err);
       });
     });
@@ -50,49 +47,47 @@ export class StorageProvider {
   // Liest die Datei vom Speicher ein.
   readFileAsBinary(filename: string) {
     return new Promise((resolve, reject) => {
-console.error("11")
+
       this.fileExists(filename).then(() => {
-console.error("12")
+
         this.file.readAsBinaryString(this.path, filename).then((binaryString: string) => {
           console.log("StarDuell: Datei erfolgreich ausgelesen!");
           resolve(binaryString);
 
         }, (err) => {
-          console.error("13")
           reject(err);
         });
       }, (err: string) => {
-        console.error(JSON.stringify(err).toString());
+        console.error(err);
         reject(err);
       });
     });
   }
 
   // Legt eine neue Datei auf dem Gerät an.
-  createFile(path: string, filename: string, data: string) {
-    return new Promise((resolve, reject) => {
-      var fileSize = 1; //-------------------------------herausfinden
+  createFile(imgString) {
 
-      this.enoughSpace(fileSize).then((enough: boolean) => {
+    var img = new Image();
+    img.src = imgString;
+    img.addEventListener('load', (event) => {
+      console.log(1);
+      this.file.getFreeDiskSpace().then((value: number) => {
+        console.log("2 - " + value);
+        if ((img.height * img.width) / 1000.0 < value) {
+          console.log(3);
+          this.file.writeFile(this.file.applicationDirectory, "bild.jpg", imgString, { replace: true }).then(() => {
+            console.log(4);
+            this.file.checkFile(this.file.applicationDirectory, "bild.jpg").then(_ => console.log('File exists')).catch(err => console.log('File doesnt exist'));
+          }), (err) => { console.log(5); };
 
-        if (enough) {
-          // Crashes here -----------------------------------------------------------------
-          this.file.writeFile(path, filename, data, { replace: true }).then(() => {
-            console.log("StarDuell: Datei wurde erfolgreich geschrieben.");
-            resolve();
-
-          }), (err) => {
-            reject(err);
-          };
-          // ------------------------------------------------------------------------------
-        } else {
-          reject("StarDuell: Nicht genügend Speicher vorhanden!")
         }
+      }, (err) => {
+        console.error("takeAPicture(): ", err);
+      });
 
-      }), (err) => {
-        reject(err);
-      };
     });
+
+
   }
 
   // Löscht eine Datei auf dem Gerät.
@@ -112,7 +107,7 @@ console.error("12")
         });
 
       }, (err: string) => {
-        console.error(JSON.stringify(err).toString());
+        console.error(err);
         reject(err);
       });
 
@@ -132,7 +127,7 @@ console.error("12")
         }
         resolve(exists);
       }, (err: string) => {
-        console.error(JSON.stringify(err).toString());
+        console.error(err);
         reject(err);
       });
     });
@@ -151,7 +146,7 @@ console.error("12")
 
             var list: string[] = new Array();
             for (var _i = 0; _i < listing.length; _i++) {
-              var temp: string = listing[_i].name;
+              var temp: string = listing.pop().name;
               list.push(temp);
             }
             resolve(list);
@@ -165,7 +160,7 @@ console.error("12")
         }
 
       }, (err: string) => {
-        console.error(JSON.stringify(err).toString());
+        console.error(err);
         reject(err);
       });
     });

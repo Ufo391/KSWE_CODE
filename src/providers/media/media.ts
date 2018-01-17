@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { StorageProvider } from '../../providers/storage/storage';
+import { AuthProvider } from '../../providers/auth/auth';
+import { UtilitiesProvider } from '../../providers/utilities/utilities';
 
+import { ServerResponseInterface, ServerResponseModel } from '../../app/models/ServerResponseModel';
+//import { MediaModel } from '../../app/models/MediaModel';
+//import { stringify } from '@angular/core/src/util';
 
 /*
   Plugin "Streaming Media"?
@@ -23,7 +28,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 @Injectable()
 export class MediaProvider {
 
-  constructor(public http: Http, public storage: StorageProvider) {
+  constructor(public http: Http, public utilities: UtilitiesProvider, public storage: StorageProvider, public authProvider: AuthProvider) {
   }
 
   /*submitVideo(filename: string) {
@@ -46,25 +51,51 @@ export class MediaProvider {
     });
   }*/
 
-  getVideo(){
-    var lastFile = "";
+  uploadVideo(data: string) {
+    return new Promise((resolve, reject) => {
 
-    this.storage.getFileList( "www/Video/").then((entries: string[]) => {
+      // Session aus dem Native Storage auslesen:
+      this.authProvider.checkAuthentication().then((sessionID: string) => {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'undefined');
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('authorization', sessionID);
+        headers.append('mode', 'video');
+
+        var fd = new FormData();
+        fd.append('upfile', data)
+
+        // Übermittelt Videodaten an den Server. Gibt die Antwort des Servers zurück.
+        this.http.post('/upload', fd, { headers: headers })
+          .subscribe(data => {
+
+            // JSON String parsen.
+            let tempResponse: ServerResponseInterface = JSON.parse(JSON.stringify(data.json()));
+            // ServerResponseModel-Object erstellen.
+            let response: ServerResponseModel = new ServerResponseModel(tempResponse.success, tempResponse.msg);
+            // SessionModel zurückgeben.
+            resolve(response);
+
+          }, (err) => {
+            reject(err);
+            console.error(JSON.stringify(err).toString())
+          });
+
+      }, (err) => {
+        console.error(JSON.stringify(err).toString());
+        reject(err);
+      });
+    });
+  }
+
+  listFilesInLog() {
+    this.storage.getFileList("www/Video/").then((entries: string[]) => {
       entries.forEach(element => {
-        lastFile = element;
         console.error(element);
       });
-
-      this.storage.deleteFile("www/Video/", lastFile).then(() =>{
-        console.error("yuchee");
-      }, (err: string) =>{
-        console.error(err.toString());
-      });
     }, (err: string) => {
-      console.log("----NOPE1" + err);
     });
-
-    
   }
 
 }
