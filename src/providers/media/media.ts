@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { VideoPlayer } from '@ionic-native/video-player';
 import 'rxjs/add/operator/map';
 
 import { StorageProvider } from '../../providers/storage/storage';
@@ -28,19 +29,8 @@ import { ServerResponseInterface, ServerResponseModel } from '../../app/models/S
 @Injectable()
 export class MediaProvider {
 
-  constructor(public http: Http, public utilities: UtilitiesProvider, public storage: StorageProvider, public authProvider: AuthProvider) {
+  constructor(private videoPlayer: VideoPlayer, public http: Http, public utilities: UtilitiesProvider, public storage: StorageProvider, public authProvider: AuthProvider) {
   }
-
-  /*submitVideo(filename: string) {
-    const VIDEO_FOLDER = "Video/";
-    const AUDIO_FOLDER = "Audio/";
-
-    this.storage.readFileAsBinary(VIDEO_FOLDER + filename).then((binaryString: string) => {
-      console.error(binaryString);
-    }, (err) => {
-      console.log("------ABC");
-    });
-  }*/
 
   /*playVideo(file: string) {
     // Playing a video.
@@ -50,6 +40,20 @@ export class MediaProvider {
       console.log(err);
     });
   }*/
+
+  playVideo(file: string) {
+    return new Promise((resolve, reject) => {
+
+      var filepath: string = "file:///android_asset/www/Video/" + file;
+
+      this.videoPlayer.play(filepath).then(() => {
+        resolve("Video " + file + " wird abgespielt.");
+      }).catch(err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
 
   uploadVideo(data: string) {
     return new Promise((resolve, reject) => {

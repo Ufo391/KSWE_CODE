@@ -17,6 +17,7 @@ import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { VideoPlayer } from '@ionic-native/video-player';
 import { UtilitiesProvider } from '../providers/utilities/utilities';
 import { StorageProvider } from '../providers/storage/storage';
 import { MediaProvider } from '../providers/media/media';
@@ -56,6 +57,7 @@ import { MediaProvider } from '../providers/media/media';
     AuthProvider,
     Camera,
     File,
+    VideoPlayer,
     UtilitiesProvider,
     StorageProvider,
     MediaProvider

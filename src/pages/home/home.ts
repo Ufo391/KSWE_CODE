@@ -51,6 +51,14 @@ export class HomePage {
   }
 
   openRegister() {
+
+    this.media.playVideo("sample.mp4").then((result: string) =>{
+      console.log(result);
+    }, (err) => {
+      console.error(JSON.stringify(err).toString());
+      
+    });
+    
     this.navCtrl.push(RegisterPage);
   }
 
