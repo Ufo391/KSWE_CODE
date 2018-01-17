@@ -45,7 +45,7 @@ export class UtilitiesProvider {
   logout() {
     // Session überschreiben.
     let session: SessionModel = new SessionModel("EMPTY", "logout");
-    //this.authProvider.setToken(session);
+    this.authProvider.setToken(session);
   }
 
 }

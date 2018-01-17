@@ -34,10 +34,12 @@ export class ArchivePage {
   }
 
   playVideo() {
+    console.log("StarDuell: playVideo()");
+
     this.media.playVideo("sample.mp4").then((result: string) => {
-      console.log(result);
+      console.log("StarDuell: " + result);
     }, (err) => {
-      console.error(JSON.stringify(err).toString());
+      console.error("StarDuell: " + JSON.stringify(err).toString());
     });
   }
 

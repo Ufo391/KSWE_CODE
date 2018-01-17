@@ -35,15 +35,12 @@ export class OptionsPage {
 
     this.trigger().then((myBase64: string) => {
 
-
       /*var img = new Image();
       img.src = myBase64;
       img.addEventListener('load', function () {
         console.log("-------------------------------------");
         console.log("Size H: " + img.height.toString());
       });
-
-
 
     }, (err) => {
       console.error("takeAPicture(): ", err);

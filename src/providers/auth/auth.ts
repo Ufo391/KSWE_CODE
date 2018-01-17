@@ -9,6 +9,9 @@ import { ServerResponseInterface, ServerResponseModel } from '../../app/models/S
 
 // Max. Lebensdauer (ms) einer Session auf dem Server.
 const MAX_AGE = 1000000000;
+// URL for noProxy
+//const PROXY = "http://minden.froese-energieausholz.de:3000/api";
+const PROXY = "";
 
 @Injectable()
 export class AuthProvider {
@@ -76,7 +79,7 @@ export class AuthProvider {
 
       console.log("StarDuell: Starte Anfrage auf: /signup");
       // Übermittelt die Registrier-Daten zum Server. Gibt die Antwort des Servers zurück.
-      this.http.post('/signup', credentials, { headers: headers })
+      this.http.post(PROXY + '/signup', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.
@@ -107,7 +110,7 @@ export class AuthProvider {
 
       console.log("StarDuell: Starte Anfrage auf: /authenticate");
       // Übermittelt die Login-Daten zum Server. Gibt die Antwort des Servers zurück.
-      this.http.post('/authenticate', credentials, { headers: headers })
+      this.http.post(PROXY + '/authenticate', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.

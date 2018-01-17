@@ -21,6 +21,11 @@ import { ServerResponseInterface, ServerResponseModel } from '../../app/models/S
   "Video Capture Plus"
   https://ionicframework.com/docs/native/video-capture-plus/
 */
+
+// URL for noProxy
+//const PROXY = "http://minden.froese-energieausholz.de:3000/api";
+const PROXY = "";
+
 @Injectable()
 export class MediaProvider {
 
@@ -69,7 +74,7 @@ export class MediaProvider {
         fd.append('upfile', data);
 
         // Übermittelt Videodaten an den Server. Gibt die Antwort des Servers zurück.
-        this.http.post('/upload', fd, { headers: headers })
+        this.http.post(PROXY + '/upload', {upfile: data}, { headers: headers })
           .subscribe(data => {
 
             // JSON String parsen.
