@@ -19,7 +19,10 @@ export class LoginPage {
 	name: string;
 	password: string;
 
-	constructor(public navCtrl: NavController, public authProvider: AuthProvider, public utilities: UtilitiesProvider, public navParams: NavParams) {
+	constructor(public navCtrl: NavController,
+		public authProvider: AuthProvider,
+		public utilities: UtilitiesProvider,
+		public navParams: NavParams) {
 	}
 
 	// Auf dem Server anmelden. Ruft die login Methode vom authProvider mit den Login-Daten auf.

@@ -7,7 +7,8 @@ import { File } from '@ionic-native/file';
 export class StorageProvider {
   path: string = "";
 
-  constructor(public http: Http, public file: File) {
+  constructor(public http: Http,
+    public file: File) {
     this.path = "file:///android_asset/";
   }
 
@@ -50,9 +51,9 @@ export class StorageProvider {
   // Liest die Datei vom Speicher ein.
   readFileAsBinary(filename: string) {
     return new Promise((resolve, reject) => {
-console.error("11")
+      console.error("11")
       this.fileExists(filename).then(() => {
-console.error("12")
+        console.error("12")
         this.file.readAsBinaryString(this.path, filename).then((binaryString: string) => {
           console.log("StarDuell: Datei erfolgreich ausgelesen!");
           resolve(binaryString);

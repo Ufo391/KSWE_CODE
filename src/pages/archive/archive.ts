@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
+import { MediaProvider } from '../../providers/media/media';
+import { UtilitiesProvider } from '../../providers/utilities/utilities';
+
 /**
  * Generated class for the ArchivePage page.
  *
@@ -16,19 +19,26 @@ import { HomePage } from '../home/home';
 })
 export class ArchivePage {
 
-	items: string[];	  
+  items: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ArchivePage');
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public utilities: UtilitiesProvider,
+    public media: MediaProvider) {
   }
 
   logout() {
-    this.navCtrl.setRoot(HomePage);    
+    this.utilities.logout();
+    this.navCtrl.setRoot(HomePage);
     this.navCtrl.popToRoot();
-    
+  }
+
+  playVideo() {
+    this.media.playVideo("sample.mp4").then((result: string) => {
+      console.log(result);
+    }, (err) => {
+      console.error(JSON.stringify(err).toString());
+    });
   }
 
 }

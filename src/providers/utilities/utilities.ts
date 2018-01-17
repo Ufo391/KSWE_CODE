@@ -11,7 +11,9 @@ export class UtilitiesProvider {
 
   private loading: any;
 
-  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController, public authProvider: AuthProvider) {
+  constructor(public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    public authProvider: AuthProvider) {
   }
 
   // Zeigt einen Anmeldeprozess grafisch dar. (Wartezeit)
@@ -43,7 +45,7 @@ export class UtilitiesProvider {
   logout() {
     // Session überschreiben.
     let session: SessionModel = new SessionModel("EMPTY", "logout");
-    this.authProvider.setToken(session);
+    //this.authProvider.setToken(session);
   }
 
 }

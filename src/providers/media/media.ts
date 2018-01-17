@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map';
 
 import { StorageProvider } from '../../providers/storage/storage';
 import { AuthProvider } from '../../providers/auth/auth';
-import { UtilitiesProvider } from '../../providers/utilities/utilities';
 
 import { ServerResponseInterface, ServerResponseModel } from '../../app/models/ServerResponseModel';
 //import { MediaModel } from '../../app/models/MediaModel';
@@ -21,15 +20,14 @@ import { ServerResponseInterface, ServerResponseModel } from '../../app/models/S
 
   "Video Capture Plus"
   https://ionicframework.com/docs/native/video-capture-plus/
-
-  Plugin "Video Player"
-  ionic cordova plugin add https://github.com/moust/cordova-plugin-videoplayer.git
-  npm install --save @ionic-native/video-player
 */
 @Injectable()
 export class MediaProvider {
 
-  constructor(private videoPlayer: VideoPlayer, public http: Http, public utilities: UtilitiesProvider, public storage: StorageProvider, public authProvider: AuthProvider) {
+  constructor(private videoPlayer: VideoPlayer,
+    public http: Http,
+    public storage: StorageProvider,
+    public authProvider: AuthProvider) {
   }
 
   /*playVideo(file: string) {
@@ -61,14 +59,14 @@ export class MediaProvider {
       // Session aus dem Native Storage auslesen:
       this.authProvider.checkAuthentication().then((sessionID: string) => {
 
+        console.error("SID: " + sessionID)
         let headers = new Headers();
-        headers.append('Content-Type', 'undefined');
+        headers.append('Content-Type', 'form-data');
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('authorization', sessionID);
-        headers.append('mode', 'video');
 
         var fd = new FormData();
-        fd.append('upfile', data)
+        fd.append('upfile', data);
 
         // Übermittelt Videodaten an den Server. Gibt die Antwort des Servers zurück.
         this.http.post('/upload', fd, { headers: headers })

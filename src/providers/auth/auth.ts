@@ -8,14 +8,15 @@ import { SessionModel, SessionInterface } from '../../app/models/SessionModel';
 import { ServerResponseInterface, ServerResponseModel } from '../../app/models/ServerResponseModel';
 
 // Max. Lebensdauer (ms) einer Session auf dem Server.
-const MAX_AGE = 10000000;
+const MAX_AGE = 1000000000;
 
 @Injectable()
 export class AuthProvider {
 
   public token: any;
 
-  constructor(public http: Http, public nativeStorage: NativeStorage) {
+  constructor(public http: Http,
+    public nativeStorage: NativeStorage) {
   }
 
   // Checken, ob die zuletzt gespeicherte Session noch aktiv ist.

@@ -17,20 +17,17 @@ import { HomePage } from '../home/home';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams) {
   }
 
   logout() {
-    this.navCtrl.setRoot(HomePage);     
-    this.navCtrl.popToRoot();   
-  } 
-  
+    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.popToRoot();
+  }
+
   openProfile() {
-    this.navCtrl.push(ProfilePage);    
+    this.navCtrl.push(ProfilePage);
   }
 
 }

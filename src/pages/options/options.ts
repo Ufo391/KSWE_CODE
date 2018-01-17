@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+//import { Camera, CameraOptions } from '@ionic-native/camera';
+import { HomePage } from '../home/home';
+
+import { StorageProvider } from '../../providers/storage/storage';
+import { MediaProvider } from '../../providers/media/media';
+import { UtilitiesProvider } from '../../providers/utilities/utilities';
+
+import { ServerResponseModel } from '../../app/models/ServerResponseModel';
 
 /**
  * Generated class for the OptionsPage page.
@@ -16,10 +23,15 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class OptionsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    /*private camera: Camera,*/
+    public utilities: UtilitiesProvider,
+    public media: MediaProvider,
+    public storage: StorageProvider) {
   }
 
-  takeAPicture() {
+  /*takeAPicture() {
 
     this.trigger().then((myBase64: string) => {
 
@@ -29,7 +41,7 @@ export class OptionsPage {
       img.addEventListener('load', function () {
         console.log("-------------------------------------");
         console.log("Size H: " + img.height.toString());
-      });*/
+      });
 
 
 
@@ -37,9 +49,9 @@ export class OptionsPage {
       console.error("takeAPicture(): ", err);
     });
 
-  }
+  }*/
 
-  trigger() {
+  /*trigger() {
     return new Promise((resolve, reject) => {
 
       let options: CameraOptions = {
@@ -56,6 +68,25 @@ export class OptionsPage {
         reject(err);
       });
     });
+  }*/
+
+  logout() {
+    this.utilities.logout();
+    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.popToRoot();
   }
 
+  uploadVideo() {
+    this.storage.readFileAsBinary("www/Video/small.mp4").then((data: string) => {
+
+      this.media.uploadVideo(data).then((result: ServerResponseModel) => {
+        console.log("HalliHallo: " + result.getMsg());
+      }, (err) => {
+        console.error(JSON.stringify(err).toString());
+      });
+
+    }, (err) => {
+      console.error(JSON.stringify(err).toString());
+    });
+  }
 }
