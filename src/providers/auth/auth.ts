@@ -1,57 +1,59 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { AlertController } from 'ionic-angular';
+import 'rxjs/add/operator/map';
+
 import { CredentialsModel } from '../../app/models/CredentialsModel';
 import { SessionModel, SessionInterface } from '../../app/models/SessionModel';
-import 'rxjs/add/operator/map';
 import { ServerResponseInterface, ServerResponseModel } from '../../app/models/ServerResponseModel';
+
+// Max. Lebensdauer (ms) einer Session auf dem Server.
+const MAX_AGE = 100000;
 
 @Injectable()
 export class AuthProvider {
 
   public token: any;
 
-  constructor(private http: Http, public nativeStorage: NativeStorage, public alertCtrl: AlertController) {
+  constructor(public http: Http, public nativeStorage: NativeStorage) {
   }
 
   // Checken, ob die zuletzt gespeicherte Session noch aktiv ist.
-  checkAuthentication() {
+  checkAuthentication(session: SessionModel) {
+    return new Promise((resolve, reject) => {
 
-    /*return new Promise((resolve, reject) => {
+      //-------------------------------------------------------
+      // Überprüfe wie alt die SessionID ist (max. MAX_AGE gültig).
+      if (session.getAge() > MAX_AGE) {
+        reject("Gespeicherte Session ist zu alt.");
+      }
 
-    //Load token if exists
-    this.nativeStorage.getItem('token').then((data) => {
-
-      this.token = data;
+      if (session.getAge() <= MAX_AGE)
+        resolve("Alles Tutti");
 
       let headers = new Headers();
-      headers.append('Authorization', this.token);
+      headers.append('Content-Type', 'application/json');
+      headers.append('Access-Control-Allow-Origin', '*');
 
-      //this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/auth/protected', { headers: headers })
-      //this.http.get('TODO', {headers: headers})
+      /*console.log("StarDuell: Starte Anfrage auf: /--------------------------------------------------------------------------");
+      // Übermittelt das Token zum Server und überprüft, ob die Session noch aktiv ist.
+      // Gibt die Antwort des Servers zurück.
+      this.http.post('/signup', credentials, { headers: headers })
+        .subscribe(data => {
 
-      this.http.get('http://localhost:3000/login?password=pass&id=5')
-        //this.http.post('TODO PLATZHALTER', JSON.stringify(credentials), {headers: headers})
-        .subscribe(res => {
-
-
-
-          if (res[0] == 'true') {
-            resolve(data);
-          } else  { reject(); }
+          // JSON String parsen.
+          let tempResponse: ServerResponseInterface = JSON.parse(JSON.stringify(data.json()));
+          // ServerResponseModel-Object erstellen.
+          let response: ServerResponseModel = new ServerResponseModel(tempResponse.success, tempResponse.msg);
+          // SessionModel zurückgeben.
+          resolve(response);
 
         }, (err) => {
           reject(err);
         });
-        
+        */
 
-    },
-      error => console.error(error)
-    );
-
-    });*/
-
+    });
   }
 
   // Account anlegen (registrieren)
@@ -61,10 +63,11 @@ export class AuthProvider {
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      headers.append('Access-Control-Allow-Origin', '*');
 
-      console.log("StarDuell: Starte Anfrage auf: api/signup");
+      console.log("StarDuell: Starte Anfrage auf: /signup");
       // Übermittelt die Registrier-Daten zum Server. Gibt die Antwort des Servers zurück.
-      this.http.post('api/signup', credentials, { headers: headers })
+      this.http.post('/signup', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.
@@ -90,10 +93,11 @@ export class AuthProvider {
       // Anfrage als Typ JSON-Object festlegen.
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      headers.append('Access-Control-Allow-Origin', '*');
 
-      console.log("StarDuell: Starte Anfrage auf: api/authenticate");
+      console.log("StarDuell: Starte Anfrage auf: /authenticate");
       // Übermittelt die Login-Daten zum Server. Gibt die Antwort des Servers zurück.
-      this.http.post('api/authenticate', credentials, { headers: headers })
+      this.http.post('/authenticate', credentials, { headers: headers })
         .subscribe(data => {
 
           // JSON String parsen.
@@ -110,17 +114,11 @@ export class AuthProvider {
     });
   }
 
-  // Vom Server abmelden
-  // Löscht Session Cookie vom Storage
-  logout() {
-    this.nativeStorage.remove("StarDuellToken");
-  }
-
   // Speichert eine Session als Token im nativen Speicher.
   setToken(session: SessionModel) {
     this.nativeStorage.setItem('StarDuellToken', JSON.stringify(session))
       .then(
-      () => console.log("StarDuell: Session Cookie wurde gespeichert."),
+      () => console.log("StarDuell: Session Cookie wurde gespeichert: " + session.getSessionID()),
       error => console.error("StarDuell: Session Cookie wurde nicht gespeichert: ", error)
       );
   }

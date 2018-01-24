@@ -12,13 +12,15 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
-import { OptionsPage } from '../pages/options/options'; 
+import { OptionsPage } from '../pages/options/options';
 import { ArchivePage } from '../pages/archive/archive';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { NavigationProvider } from '../providers/navigation/navigation';
+import { Camera } from '@ionic-native/camera';
+import { UtilitiesProvider } from '../providers/utilities/utilities';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,10 @@ import { NavigationProvider } from '../providers/navigation/navigation';
     NativeAudio,
     SmartAudio,
     NavigationProvider,
-    File
+    File,
+    AuthProvider,
+    Camera,
+    UtilitiesProvider
   ]
 })
 export class AppModule {
