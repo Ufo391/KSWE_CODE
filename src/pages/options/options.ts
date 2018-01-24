@@ -39,9 +39,6 @@ export class OptionsPage {
     this.fillGenresPicker();
   }
 
-  ionViewDidLoad() {
-  }
-
   fillGenresPicker() {
     this.storage.getFileList("www/Audio/").then((entries: string[]) => {
       entries.forEach(element => {
@@ -53,15 +50,22 @@ export class OptionsPage {
     });
   }
 
-  fillSubjectsPicker() {
-    this.storage.getFileList("www/Audio/").then((entries: string[]) => {
+  fillSubjectsPicker(dir: string) {
+    this.storage.getFileList("www/Audio/" + dir + "/").then((entries: string[]) => {
       entries.forEach(element => {
-        // Genres Picker füllen
-        this.genres.push(element);
+        // Subjects Picker füllen
+        let withoutMP3: string = element.substring(0, element.length - 4);
+        this.subjects.push(withoutMP3);
       });
     }, (err) => {
       console.error(JSON.stringify(err).toString())
     });
+  }
+
+  genreChangedEvent(selectedGenre) {
+    this.subjects = [];
+    this.subjectID = "";
+    this.fillSubjectsPicker(this.genreID);
   }
 
   /*takeAPicture() {
@@ -106,7 +110,21 @@ export class OptionsPage {
     this.navCtrl.popToRoot();
   }
 
+  startRecording() {
+    if (this.subjectID === "" || this.duration === 0) {
+      this.utilities.giveAlert("Fehler!", "Bitte alle Felder ausfüllen!");
+    } else {
+      console.log("StarDuell: Start Recording! Genre: " + this.genreID + " Subject: " + this.subjectID + " Duration: " + this.duration);
+    }
+  }
+
   uploadVideo() {
-    this.media.uploadVideo("big.mp4");
+    this.storage.getFileList("www/Video/").then((entries: string[]) => {
+      if (entries.length >= 1) {
+        this.media.uploadVideo(entries[0]);
+      }
+    }, (err) => {
+      console.error(JSON.stringify(err).toString())
+    });
   }
 }

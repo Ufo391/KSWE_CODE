@@ -26,7 +26,7 @@
 		<div id="selections">
 		<ion-item>
 			<ion-label>Genre</ion-label>
-            <ion-select multiple="false" [(ngModel)]="genreID">
+            <ion-select multiple="false" [(ngModel)]="genreID" (ngModelChange)="genreChangedEvent($event)">
                 <ion-option *ngFor="let genre of genres">{{genre}}</ion-option>
             </ion-select>
       	</ion-item>
@@ -48,7 +48,7 @@
       		</ion-select>
       	</ion-item>
 	  </div>
-	<button ion-button full>Start</button>
+	<button ion-button full (click)="startRecording()">Start</button>
 	<button ion-button full (click)="uploadVideo()">Upload Video</button>
   </ion-list>
 </ion-content>
