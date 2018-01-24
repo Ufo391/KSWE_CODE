@@ -14,11 +14,7 @@ export class SessionModel {
 
     constructor(name: string, sessionID: string) {
         this.name = name;
-        if(sessionID.length > 3 && sessionID.substring(0,3) === "JWT"){
-            this.sessionID = sessionID.substring(4, sessionID.length);
-        } else{
-            this.sessionID = sessionID;
-        }
+        this.sessionID = sessionID;
         this.timeStamp = new Date().getTime();
     }
 

@@ -23,11 +23,9 @@ export class ModePage {
 
   items: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public utilities: UtilitiesProvider) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ModePage');
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public utilities: UtilitiesProvider) {
   }
 
   openOptions() {
@@ -45,7 +43,7 @@ export class ModePage {
   }
 
   openProfile() {
-    this.navCtrl.push(ProfilePage);    
+    this.navCtrl.push(ProfilePage);
   }
 
 }

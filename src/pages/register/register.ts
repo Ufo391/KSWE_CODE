@@ -19,10 +19,10 @@ export class RegisterPage {
   name: string;
   password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthProvider, public utilities: UtilitiesProvider) {
-  }
-
-  ionViewDidLoad() {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public authProvider: AuthProvider,
+    public utilities: UtilitiesProvider) {
   }
 
   // Neuen Benutzer auf dem Server registrieren. Ruft die register Methode vom authProvider mit den Benutzerdaten auf.
@@ -31,7 +31,7 @@ export class RegisterPage {
 
     console.log("StarDuell: Registriere neuen Benutzer auf dem Server.");
     // Ladebalken anzeigen
-    this.utilities.showLoader();
+    this.utilities.showLoader("Authenticating...");
 
     // Speichert die Registrierungsdaten als Objekt.
     let credentials = new CredentialsModel(this.name, this.password);

@@ -20,7 +20,12 @@ import { ProfilePage } from '../pages/profile/profile';
 import { SmartAudio } from '../providers/smart-audio/smart-audio';
 import { NavigationProvider } from '../providers/navigation/navigation';
 import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { VideoPlayer } from '@ionic-native/video-player';
+import { FileTransfer} from '@ionic-native/file-transfer';
 import { UtilitiesProvider } from '../providers/utilities/utilities';
+import { StorageProvider } from '../providers/storage/storage';
+import { MediaProvider } from '../providers/media/media';
 
 @NgModule({
   declarations: [
@@ -59,9 +64,11 @@ import { UtilitiesProvider } from '../providers/utilities/utilities';
     SmartAudio,
     NavigationProvider,
     File,
-    AuthProvider,
-    Camera,
-    UtilitiesProvider
+    VideoPlayer,
+    FileTransfer,
+    UtilitiesProvider,
+    StorageProvider,
+    MediaProvider
   ]
 })
 export class AppModule {

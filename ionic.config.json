@@ -7,6 +7,10 @@
   },
   "proxies": [
     {
+      "path": "/upload",
+      "proxyUrl": "http://minden.froese-energieausholz.de:3000/api/upload"
+    },
+    {
       "path": "/authenticate",
       "proxyUrl": "http://minden.froese-energieausholz.de:3000/api/authenticate"
     },

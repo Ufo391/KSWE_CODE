@@ -19,7 +19,10 @@ export class LoginPage {
 	name: string;
 	password: string;
 
-	constructor(public navCtrl: NavController, public authProvider: AuthProvider, public utilities: UtilitiesProvider, public navParams: NavParams) {
+	constructor(public navCtrl: NavController,
+		public authProvider: AuthProvider,
+		public utilities: UtilitiesProvider,
+		public navParams: NavParams) {
 	}
 
 	// Auf dem Server anmelden. Ruft die login Methode vom authProvider mit den Login-Daten auf.
@@ -27,7 +30,7 @@ export class LoginPage {
 	login() {
 		console.log("StarDuell: Anmeldeversuch auf dem Server.");
 		// Ladebalken anzeigen
-		this.utilities.showLoader();
+		this.utilities.showLoader("Authenticating...");
 
 		// Speichert die Anmeldedaten als Objekt.
 		let credentials = new CredentialsModel(this.name, this.password);
