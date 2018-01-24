@@ -62,47 +62,10 @@ export class MediaProvider {
     });
   }
 
-  /*uploadVideo(data: string) {
-    return new Promise((resolve, reject) => {
-
-      // Session aus dem Native Storage auslesen:
-      this.authProvider.checkAuthentication().then((sessionID: string) => {
-
-        console.error("SID: " + sessionID)
-        let headers = new Headers();
-        headers.append('Content-Type', 'form-data');
-        headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('authorization', sessionID);
-
-        var fd = new FormData();
-        fd.append('upfile', data);
-
-        // Übermittelt Videodaten an den Server. Gibt die Antwort des Servers zurück.
-        this.http.post(PROXY + '/upload', {upfile: data}, { headers: headers })
-          .subscribe(data => {
-
-            // JSON String parsen.
-            let tempResponse: ServerResponseInterface = JSON.parse(JSON.stringify(data.json()));
-            // ServerResponseModel-Object erstellen.
-            let response: ServerResponseModel = new ServerResponseModel(tempResponse.success, tempResponse.msg);
-            // SessionModel zurückgeben.
-            resolve(response);
-
-          }, (err) => {
-            reject(err);
-            console.error(JSON.stringify(err).toString())
-          });
-
-      }, (err) => {
-        console.error(JSON.stringify(err).toString());
-        reject(err);
-      });
-    });
-  }*/
-
   uploadVideo(filename: string) {
     return new Promise((resolve, reject) => {
 
+      // Auf CheckAuthentification ändern ------------------------------------------------------
       this.authProvider.getToken().then((token: SessionModel) => {
 
         var progress: number = 0;

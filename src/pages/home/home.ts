@@ -40,4 +40,8 @@ export class HomePage {
     this.navCtrl.push(RegisterPage);
   }
 
+  dummyLogin() {
+    this.navCtrl.setRoot(ModePage);
+  }
+
 }

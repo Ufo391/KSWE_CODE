@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomePage } from '../home/home';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { StorageProvider } from '../../providers/storage/storage';
 import { MediaProvider } from '../../providers/media/media';
@@ -23,12 +24,44 @@ import { ServerResponseModel } from '../../app/models/ServerResponseModel';
 })
 export class OptionsPage {
 
+  genres: Array<string> = [];
+  subjects: Array<string> = [];
+  genreID: string = "";
+  subjectID: string = "";
+  duration: number = 0;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     /*private camera: Camera,*/
     public utilities: UtilitiesProvider,
     public media: MediaProvider,
     public storage: StorageProvider) {
+    this.fillGenresPicker();
+  }
+
+  ionViewDidLoad() {
+  }
+
+  fillGenresPicker() {
+    this.storage.getFileList("www/Audio/").then((entries: string[]) => {
+      entries.forEach(element => {
+        // Genres Picker füllen
+        this.genres.push(element);
+      });
+    }, (err) => {
+      console.error(JSON.stringify(err).toString())
+    });
+  }
+
+  fillSubjectsPicker() {
+    this.storage.getFileList("www/Audio/").then((entries: string[]) => {
+      entries.forEach(element => {
+        // Genres Picker füllen
+        this.genres.push(element);
+      });
+    }, (err) => {
+      console.error(JSON.stringify(err).toString())
+    });
   }
 
   /*takeAPicture() {

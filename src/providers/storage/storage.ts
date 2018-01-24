@@ -152,6 +152,7 @@ export class StorageProvider {
 
             var list: string[] = new Array();
             for (var _i = 0; _i < listing.length; _i++) {
+              console.error(JSON.stringify(listing).toString())
               var temp: string = listing[_i].name;
               list.push(temp);
             }
