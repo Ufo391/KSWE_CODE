@@ -1,5 +1,4 @@
-import { Component, NgZone } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomePage } from '../home/home';

@@ -3,8 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { NativeAudio } from '@ionic-native/native-audio';
-import { File } from '@ionic-native/file';
 
 import { MyApp } from './app.component';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -14,15 +12,16 @@ import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
 import { OptionsPage } from '../pages/options/options';
 import { ArchivePage } from '../pages/archive/archive';
-import { AuthProvider } from '../providers/auth/auth';
 import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
-import { SmartAudio } from '../providers/smart-audio/smart-audio';
-import { NavigationProvider } from '../providers/navigation/navigation';
-import { Camera } from '@ionic-native/camera';
+//import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { VideoPlayer } from '@ionic-native/video-player';
 import { FileTransfer} from '@ionic-native/file-transfer';
+import { NativeAudio } from '@ionic-native/native-audio';
+
+import { AuthProvider } from '../providers/auth/auth';
+import { NavigationProvider } from '../providers/navigation/navigation';
 import { UtilitiesProvider } from '../providers/utilities/utilities';
 import { StorageProvider } from '../providers/storage/storage';
 import { MediaProvider } from '../providers/media/media';
@@ -61,7 +60,6 @@ import { MediaProvider } from '../providers/media/media';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     NativeAudio,
-    SmartAudio,
     NavigationProvider,
     File,
     VideoPlayer,

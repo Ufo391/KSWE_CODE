@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
-import { ArchivePage } from '../../pages/archive/archive';
-import { RegisterPage } from '../../pages/register/register';
-import { LoginPage } from '../../pages/login/login';
-import { ModePage } from '../../pages/mode/mode';
-import { OptionsPage } from '../../pages/options/options';
-import { ProfilePage } from '../../pages/profile/profile';
+import { NavController, NavParams } from 'ionic-angular';
+//import { HomePage } from '../../pages/home/home';
+//import { ArchivePage } from '../../pages/archive/archive';
+//import { RegisterPage } from '../../pages/register/register';
+//import { LoginPage } from '../../pages/login/login';
+//import { ModePage } from '../../pages/mode/mode';
+//import { OptionsPage } from '../../pages/options/options';
+//import { ProfilePage } from '../../pages/profile/profile';
 
 
 import 'rxjs/add/operator/map';
@@ -27,13 +27,13 @@ export class NavigationProvider {
   }
 
   logout() {
-    this.navCtrl.setRoot(HomePage);    
-    this.navCtrl.popToRoot();
+    //this.navCtrl.setRoot(HomePage);    
+    //this.navCtrl.popToRoot();
 
   }
 
   openOptions() {
-  	this.navCtrl.push(OptionsPage);
+  	//this.navCtrl.push(OptionsPage);
   }
 
 
