@@ -47,10 +47,11 @@
       	<ion-item>
 			<ion-label>Instrumental</ion-label>
 			<ion-select [(ngModel)]="instrumental">
-				<ion-option value="coming">coming</ion-option>
-				<ion-option value="soon">soon</ion-option>
+				<ion-option *ngFor="let item of items" [value]="item">
+					</ion-option>
       		</ion-select>
-      	</ion-item>
+		  </ion-item>
+		  <div *ngFor="let item of items">{{item.name}}</div>
 
       	<ion-item>
 			<ion-label>Time</ion-label>
@@ -62,6 +63,19 @@
       		</ion-select>
       	</ion-item>
 	  </div>
+	  <button ion-button right (click)="playAudio()">
+		<ion-icon name="play" ios="ion-play" *ngIf="!play"></ion-icon>
+		<ion-icon name="pause" ios="ion-pause" *ngIf="play"></ion-icon>
+	</button>
+	<button ion-button right (click)="stopAudio()">
+		<ion-icon name="pause" ios="ion-pause"></ion-icon>
+	</button>
+	<audio controls>
+		<source src="assets/audio/Say no more.mp3" type="audio/mpeg">
+	  </audio>
 	<button ion-button full>Start</button>
   </ion-list>
+  
+  
+
 </ion-content>

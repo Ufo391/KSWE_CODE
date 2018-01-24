@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { File } from '@ionic-native/file';
 
 import { MyApp } from './app.component';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -15,6 +17,8 @@ import { ArchivePage } from '../pages/archive/archive';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
+import { SmartAudio } from '../providers/smart-audio/smart-audio';
+import { NavigationProvider } from '../providers/navigation/navigation';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { ProfilePage } from '../pages/profile/profile';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    NativeAudio,
+    SmartAudio,
+    NavigationProvider,
+    File
   ]
 })
 export class AppModule {
