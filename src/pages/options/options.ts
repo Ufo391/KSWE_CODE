@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomePage } from '../home/home';
@@ -12,6 +13,7 @@ import { UtilitiesProvider } from '../../providers/utilities/utilities';
   selector: 'page-options',
   templateUrl: 'options.html',
 })
+
 export class OptionsPage {
 
   genres: Array<string> = [];
@@ -74,6 +76,7 @@ export class OptionsPage {
     });
 
   }*/
+
 
   /*trigger() {
     return new Promise((resolve, reject) => {

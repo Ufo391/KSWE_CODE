@@ -23,8 +23,8 @@
     "@ionic-native/camera": "^4.5.2",
     "@ionic-native/core": "4.3.2",
     "@ionic-native/file": "^4.5.2",
+    "@ionic-native/native-audio": "^4.5.2",
     "@ionic-native/file-transfer": "^4.5.2",
-    "@ionic-native/ftp": "^4.5.2",
     "@ionic-native/http": "^4.5.2",
     "@ionic-native/native-storage": "^4.5.2",
     "@ionic-native/splash-screen": "4.3.2",
@@ -40,6 +40,7 @@
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-nativestorage": "^2.2.2",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar": "^2.4.1",
@@ -72,13 +73,15 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-statusbar": {},
+      "cordova-plugin-nativeaudio": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
       "com.moust.cordova.videoplayer": {},
       "cordova-plugin-file-transfer": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

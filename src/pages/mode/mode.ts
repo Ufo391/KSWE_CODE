@@ -5,6 +5,13 @@ import { ArchivePage } from '../archive/archive';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
 
+
+/**
+ * Generated class for the ModePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 import { UtilitiesProvider } from '../../providers/utilities/utilities';
 
 @IonicPage()

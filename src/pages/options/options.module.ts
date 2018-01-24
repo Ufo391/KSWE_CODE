@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+                                                                                   import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { OptionsPage } from './options';
 
