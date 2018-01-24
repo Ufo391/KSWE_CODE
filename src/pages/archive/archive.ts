@@ -4,13 +4,7 @@ import { HomePage } from '../home/home';
 
 import { MediaProvider } from '../../providers/media/media';
 import { UtilitiesProvider } from '../../providers/utilities/utilities';
-
-/**
- * Generated class for the ArchivePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { StorageProvider } from '../../providers/storage/storage';
 
 @IonicPage()
 @Component({
@@ -19,12 +13,28 @@ import { UtilitiesProvider } from '../../providers/utilities/utilities';
 })
 export class ArchivePage {
 
-  items: string[];
+  videos: Array<string> = [];
+  videoID: string = "";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public utilities: UtilitiesProvider,
-    public media: MediaProvider) {
+    public media: MediaProvider,
+    public storage: StorageProvider) {
+    this.fillGallery();
+  }
+
+  fillGallery() {
+    this.videos = [];
+
+    this.storage.getFileList("www/Video/").then((entries: string[]) => {
+      entries.forEach(element => {
+        // Liste aller Videos füllen
+        this.videos.push(element);
+      });
+    }, (err) => {
+      console.error(JSON.stringify(err).toString())
+    });
   }
 
   logout() {
@@ -33,13 +43,24 @@ export class ArchivePage {
     this.navCtrl.popToRoot();
   }
 
-  playVideo() {
-    console.log("StarDuell: playVideo()");
+  refresh() {
+    console.log("StarDuell: Refresh Gallery")
+    this.fillGallery();
+  }
 
-    this.media.playVideo("sample.mp4").then((result: string) => {
+  test(){
+    this.playVideo("big.mp4");
+  }
+
+  playVideo(filename: string) {
+    this.media.playVideo(filename).then((result: string) => {
       console.log("StarDuell: " + result);
     }, (err) => {
-      console.error("StarDuell: " + JSON.stringify(err).toString());
+      if(err === "OK"){
+        console.log("StarDuell: Successfully played video: " + filename);
+      } else{
+        console.error("StarDuell: " + JSON.stringify(err).toString());
+      }
     });
   }
 

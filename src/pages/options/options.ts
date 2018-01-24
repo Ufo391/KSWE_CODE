@@ -2,20 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomePage } from '../home/home';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { StorageProvider } from '../../providers/storage/storage';
 import { MediaProvider } from '../../providers/media/media';
 import { UtilitiesProvider } from '../../providers/utilities/utilities';
-
-import { ServerResponseModel } from '../../app/models/ServerResponseModel';
-
-/**
- * Generated class for the OptionsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -121,7 +111,10 @@ export class OptionsPage {
   uploadVideo() {
     this.storage.getFileList("www/Video/").then((entries: string[]) => {
       if (entries.length >= 1) {
-        this.media.uploadVideo(entries[0]);
+        if(entries[0].substring(entries[0].length-3, entries[0].length) === "mp4"){
+          this.media.uploadVideo(entries[0]);
+          console.log("StarDuell: Uploading Video: " + entries[0]);
+        }  
       }
     }, (err) => {
       console.error(JSON.stringify(err).toString())

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { VideoPlayer } from '@ionic-native/video-player';
+import { VideoPlayer, VideoOptions } from '@ionic-native/video-player';
 import { FileTransfer, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer';
 import 'rxjs/add/operator/map';
 
@@ -39,15 +39,6 @@ export class MediaProvider {
     public utilities: UtilitiesProvider) {
   }
 
-  /*playVideo(file: string) {
-    // Playing a video.
-    this.videoPlayer.play('file:///android_asset/www/movie.mp4').then(() => {
-      console.log('video completed');
-    }).catch(err => {
-      console.log(err);
-    });
-  }*/
-
   playVideo(file: string) {
     return new Promise((resolve, reject) => {
 
@@ -56,7 +47,6 @@ export class MediaProvider {
       this.videoPlayer.play(filepath).then(() => {
         resolve("Video " + file + " wird abgespielt.");
       }).catch(err => {
-        console.log(err);
         reject(err);
       });
     });
