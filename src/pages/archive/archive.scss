@@ -34,5 +34,17 @@ page-archive {
   #line {
     flex-direction: column;
   }
+
+  #video {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    margin-top: 5%;
+  }
+
+  #thumbs {
+    margin-left: 15%;
+    
+  }
   
 }

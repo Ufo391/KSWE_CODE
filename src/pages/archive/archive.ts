@@ -63,5 +63,4 @@ export class ArchivePage {
       }
     });
   }
-
 }

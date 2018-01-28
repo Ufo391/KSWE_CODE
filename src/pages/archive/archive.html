@@ -13,7 +13,7 @@
 	</ion-navbar>  
 </ion-header>
 
-<ion-content class="no-scroll">
+<ion-content class="scroll">
 	<ion-list>
 		<div id="label">
 			<h1>Videos</h1>
@@ -41,6 +41,20 @@
 		<div>
 			<button ion-button right (click)="test()"></button>
 		</div>
+		<div *ngFor="let video of videos">
+			<video id="video" controls>
+				<source src="www/Video/{{video}}" type="video/mp4">
+			</video>
+			<div id="thumbs">
+				<button ion-button>
+					<ion-icon name="md-thumbs-up" end></ion-icon>
+				</button>
+				<button ion-button>
+						<ion-icon name="md-thumbs-down" end></ion-icon>
+				</button>
+			</div>
+		</div>
+			
 	</ion-list>
 
 </ion-content>
