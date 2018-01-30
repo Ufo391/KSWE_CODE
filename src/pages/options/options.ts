@@ -1,6 +1,5 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomePage } from '../home/home';
 
 import { StorageProvider } from '../../providers/storage/storage';
@@ -16,24 +15,37 @@ import { UtilitiesProvider } from '../../providers/utilities/utilities';
 export class OptionsPage {
 
   genres: Array<string> = [];
-  subjects: Array<string> = [];
+  titles: Array<string> = [];
+  playTitle: Array<string> = [];
   genreID: string = "";
+  titleID: string = "";
   subjectID: string = "";
   duration: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    /*private camera: Camera,*/
     public utilities: UtilitiesProvider,
     public media: MediaProvider,
     public storage: StorageProvider) {
     this.fillGenresPicker();
   }
 
+  fillTitlesPicker(dir: string) {
+    this.storage.getFileList("www/Audio/" + dir + "/").then((entries: string[]) => {
+      entries.forEach(element => {
+        // Titles Picker füllen 
+        let withoutMP3: string = element.substring(0, element.length - 4);
+        this.titles.push(withoutMP3);
+      });
+    }, (err) => {
+      console.error(JSON.stringify(err).toString())
+    });
+  }
+
   fillGenresPicker() {
     this.storage.getFileList("www/Audio/").then((entries: string[]) => {
       entries.forEach(element => {
-        // Genres Picker füllen
+        // Subjects Picker füllen
         this.genres.push(element);
       });
     }, (err) => {
@@ -41,22 +53,16 @@ export class OptionsPage {
     });
   }
 
-  fillSubjectsPicker(dir: string) {
-    this.storage.getFileList("www/Audio/" + dir + "/").then((entries: string[]) => {
-      entries.forEach(element => {
-        // Subjects Picker füllen
-        let withoutMP3: string = element.substring(0, element.length - 4);
-        this.subjects.push(withoutMP3);
-      });
-    }, (err) => {
-      console.error(JSON.stringify(err).toString())
-    });
+  genreChangedEvent(selectedGenre) {
+    this.titles = [];
+    this.playTitle = [];
+    this.subjectID = "";
+    this.fillTitlesPicker(this.genreID);
   }
 
-  genreChangedEvent(selectedGenre) {
-    this.subjects = [];
-    this.subjectID = "";
-    this.fillSubjectsPicker(this.genreID);
+  titleChangedEvent(selectedTitle) {
+    this.playTitle = [];
+    this.playTitle.push(this.titleID);
   }
 
   /*takeAPicture() {
@@ -103,7 +109,7 @@ export class OptionsPage {
   }
 
   startRecording() {
-    if (this.subjectID === "" || this.duration === 0) {
+    if (this.subjectID === "" || this.titleID === "" || this.duration === 0) {
       this.utilities.giveAlert("Fehler!", "Bitte alle Felder ausfüllen!");
     } else {
       console.log("StarDuell: Start Recording! Genre: " + this.genreID + " Subject: " + this.subjectID + " Duration: " + this.duration);
@@ -113,10 +119,10 @@ export class OptionsPage {
   uploadVideo() {
     this.storage.getFileList("www/Video/").then((entries: string[]) => {
       if (entries.length >= 1) {
-        if(entries[0].substring(entries[0].length-3, entries[0].length) === "mp4"){
+        if (entries[0].substring(entries[0].length - 3, entries[0].length) === "mp4") {
           this.media.uploadVideo(entries[0]);
           console.log("StarDuell: Uploading Video: " + entries[0]);
-        }  
+        }
       }
     }, (err) => {
       console.error(JSON.stringify(err).toString())

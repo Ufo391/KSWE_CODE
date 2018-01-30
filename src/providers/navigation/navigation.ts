@@ -33,11 +33,11 @@ export class NavigationProvider {
   }
 
   openOptions() {
-  	//this.navCtrl.push(OptionsPage);
+    //this.navCtrl.push(OptionsPage);
   }
 
 
-  
+
 
 
 }

@@ -17,7 +17,7 @@ export class UtilitiesProvider {
   }
 
   // Ändert den Statustext des grafischen Prozesses.
-  setLoaderContent(text: string){
+  setLoaderContent(text: string) {
     this.loading.setContent(text);
   }
 

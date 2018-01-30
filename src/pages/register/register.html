@@ -12,7 +12,6 @@
 	<ion-list>
 		<ion-item>
 			<ion-label fixed>Username</ion-label>
-			<!-- Email als Type ? -->
 			<ion-input [(ngModel)]="name" type="text" value=""></ion-input>
 		</ion-item>
 
@@ -20,7 +19,7 @@
 			<ion-label fixed>Password</ion-label>
 			<ion-input [(ngModel)]="password" type="password"></ion-input>
 		</ion-item>
-		<button ion-button full (click)="register()">sign up now</button>
+		<button ion-button round full (click)="register()">sign up now</button>
 
 	</ion-list>
 

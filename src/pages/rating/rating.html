@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar id="navbar">
+    <div id="logoutBtn">
+      <button ion-button right (click)="logout()">
+        <ion-icon name="power" ios="ios-power" end></ion-icon>
+      </button>
+    </div>
+    <div id="title">
+      <ion-title>
+        Rating
+      </ion-title>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div swing-stack #SwingElement [stackConfig]="stackConfig" (throwoutleft)="vote(true)" (throwoutright)="vote(false)" id="card-stack">
+    <ion-card #CardsDeck swing-card *ngFor="let v of videos">
+      <ion-row id="videoRow">
+        <ion-col>
+          <video id="video" controls>
+            <source src="Video/{{v}}" type="video/mp4">
+          </video>
+        </ion-col>
+      </ion-row>
+      <ion-row id="voteButtonRow">
+        <ion-col>
+          <button id="voteButton" ion-button clear small icon-left (click)="vote(true)">
+            <ion-icon name="thumbs-up"></ion-icon>
+            LIKE
+          </button>
+        </ion-col>
+        <ion-col>
+          <button id="voteButton" ion-button clear small icon-left (click)="vote(false)">
+            <ion-icon name="thumbs-down"></ion-icon>
+            DISLIKE
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+</ion-content>

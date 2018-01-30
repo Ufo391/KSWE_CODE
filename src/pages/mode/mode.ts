@@ -3,15 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OptionsPage } from '../options/options';
 import { ArchivePage } from '../archive/archive';
 import { HomePage } from '../home/home';
-import { ProfilePage } from '../profile/profile';
+import { RatingPage } from '../rating/rating';
 
-
-/**
- * Generated class for the ModePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 import { UtilitiesProvider } from '../../providers/utilities/utilities';
 
 @IonicPage()
@@ -42,8 +35,8 @@ export class ModePage {
     this.navCtrl.popToRoot();
   }
 
-  openProfile() {
-    this.navCtrl.push(ProfilePage);
+  openRating() {
+    this.navCtrl.push(RatingPage);
   }
 
 }

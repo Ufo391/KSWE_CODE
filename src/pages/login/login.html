@@ -1,26 +1,26 @@
 <ion-header>
-  
-  <ion-navbar>
-    <ion-title id="title">
+
+	<ion-navbar>
+		<ion-title id="title">
 			Login
 		</ion-title>
-  </ion-navbar>
-  
+	</ion-navbar>
+
 </ion-header>
 
 <ion-content padding class="no-scroll">
-	
-	<ion-list>
-	<ion-item>
-		<ion-label fixed>Username</ion-label>
-		<ion-input [(ngModel)]="name" type="text"></ion-input>
-	</ion-item>
 
-	<ion-item>
-		<ion-label fixed>Password</ion-label>
-		<ion-input [(ngModel)]="password" type="password"></ion-input>
-	</ion-item>
-	<button ion-button full (click)="login()">sign in now</button>
-</ion-list>
+	<ion-list>
+		<ion-item>
+			<ion-label fixed>Username</ion-label>
+			<ion-input [(ngModel)]="name" type="text"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label fixed>Password</ion-label>
+			<ion-input [(ngModel)]="password" type="password"></ion-input>
+		</ion-item>
+		<button ion-button round full (click)="login()">sign in now</button>
+	</ion-list>
 
 </ion-content>

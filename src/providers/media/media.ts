@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { VideoPlayer} from '@ionic-native/video-player';
+import { VideoPlayer } from '@ionic-native/video-player';
 import { FileTransfer, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer';
 import 'rxjs/add/operator/map';
 

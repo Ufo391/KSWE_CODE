@@ -32,6 +32,7 @@
     "@ionic-native/video-player": "^4.5.2",
     "@ionic/storage": "2.0.1",
     "android-versions": "^1.2.2",
+    "angular2-swing": "^0.14.0",
     "com.moust.cordova.videoplayer": "https://github.com/moust/cordova-plugin-videoplayer.git",
     "cordova-android": "^6.4.0",
     "cordova-plugin-advanced-http": "^1.9.1",

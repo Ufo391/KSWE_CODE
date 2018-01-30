@@ -48,20 +48,12 @@ export class ArchivePage {
     this.fillGallery();
   }
 
-  test(){
-    this.playVideo("big.mp4");
+  voteUp(video: string) {
+    console.log("StarDuell: Upvote: " + video);
   }
 
-  playVideo(filename: string) {
-    this.media.playVideo(filename).then((result: string) => {
-      console.log("StarDuell: " + result);
-    }, (err) => {
-      if(err === "OK"){
-        console.log("StarDuell: Successfully played video: " + filename);
-      } else{
-        console.error("StarDuell: " + JSON.stringify(err).toString());
-      }
-    });
+  voteDown(video: string) {
+    console.log("StarDuell: Downvote: " + video);
   }
 
 }

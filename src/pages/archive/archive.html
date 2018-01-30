@@ -10,10 +10,10 @@
 				Archive
 			</ion-title>
 		</div>
-	</ion-navbar>  
+	</ion-navbar>
 </ion-header>
 
-<ion-content class="no-scroll">
+<ion-content class="scroll">
 	<ion-list>
 		<div id="label">
 			<h1>Videos</h1>
@@ -34,13 +34,24 @@
 				<ion-icon name="sync" end></ion-icon>
 			</button>
 		</div>
-		<div style="clear:both"></div>		
+		<div style="clear:both"></div>
 		<div id="line">
 			<hr>
 		</div>
-		<div>
-			<button ion-button right (click)="test()"></button>
+		<div *ngFor="let video of videos">
+			<video id="video" controls>
+				<source src="Video/{{video}}" type="video/mp4">
+			</video>
+			<div id="thumbs">
+				<button ion-button (click)="voteUp(video)">
+					<ion-icon name="md-thumbs-up" end></ion-icon>
+				</button>
+				<button ion-button (click)="voteDown(video)">
+					<ion-icon name="md-thumbs-down" end></ion-icon>
+				</button>
+			</div>
 		</div>
+
 	</ion-list>
 
 </ion-content>

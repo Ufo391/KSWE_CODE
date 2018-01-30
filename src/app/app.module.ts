@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpModule } from '@angular/http';
+import { SwingModule } from 'angular2-swing';
 
 import { MyApp } from './app.component';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -12,9 +14,8 @@ import { RegisterPage } from '../pages/register/register';
 import { ModePage } from '../pages/mode/mode';
 import { OptionsPage } from '../pages/options/options';
 import { ArchivePage } from '../pages/archive/archive';
-import { HttpModule } from '@angular/http';
 import { ProfilePage } from '../pages/profile/profile';
-//import { Camera } from '@ionic-native/camera';
+import { RatingPage } from '../pages/rating/rating';
 import { File } from '@ionic-native/file';
 import { VideoPlayer } from '@ionic-native/video-player';
 import { FileTransfer} from '@ionic-native/file-transfer';
@@ -35,12 +36,14 @@ import { MediaProvider } from '../providers/media/media';
     ModePage,
     OptionsPage,
     ArchivePage,
-    ProfilePage
+    ProfilePage,
+    RatingPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    SwingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +54,8 @@ import { MediaProvider } from '../providers/media/media';
     ModePage,
     OptionsPage,
     ArchivePage,
-    ProfilePage
+    ProfilePage,
+    RatingPage
   ],
   providers: [
     NativeStorage,
