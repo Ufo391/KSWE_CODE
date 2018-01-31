@@ -14,6 +14,10 @@ import { ServerResponseModel } from '../../app/models/ServerResponseModel';
   selector: 'page-register',
   templateUrl: 'register.html',
 })
+
+/**
+ * Die Klasse RegisterPage kümmert sich um den Inhalt der Seite "Sign Up".
+ */
 export class RegisterPage {
 
   name: string;

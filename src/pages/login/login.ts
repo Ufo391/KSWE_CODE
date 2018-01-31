@@ -14,6 +14,10 @@ import { SessionModel } from '../../app/models/SessionModel';
 	selector: 'page-login',
 	templateUrl: 'login.html',
 })
+
+/**
+ * Die Klasse LoginPage kümmert sich um den Inhalt der Seite "Sign In".
+ */
 export class LoginPage {
 
 	name: string;

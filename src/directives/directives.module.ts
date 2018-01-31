@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { VideoSourceDirective } from './video-source/video-source';
 @NgModule({
-	declarations: [VideoSourceDirective],
+	declarations: [],
 	imports: [],
-	exports: [VideoSourceDirective]
+	exports: []
 })
 export class DirectivesModule {}

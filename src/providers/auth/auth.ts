@@ -14,6 +14,10 @@ const MAX_AGE = 1000000000;
 const PROXY = "";
 
 @Injectable()
+
+/**
+ * Die Klasse AuthProvider kümmert sich um alle Angelegenheiten, die der Authentifizierung zugehören.
+ */
 export class AuthProvider {
 
   public token: any;

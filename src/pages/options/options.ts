@@ -12,6 +12,9 @@ import { UtilitiesProvider } from '../../providers/utilities/utilities';
   templateUrl: 'options.html',
 })
 
+/**
+ * Die Klasse OptionsPage kümmert sich um den Inhalt der Seite "Record".
+ */
 export class OptionsPage {
 
   genres: Array<string> = [];
@@ -30,6 +33,19 @@ export class OptionsPage {
     this.fillGenresPicker();
   }
 
+  // Liest eine Liste an Genre-Ordnern aus dem nativen Gerätespeicher aus und stellt diese Liste im Genre-Picker dar.
+  fillGenresPicker() {
+    this.storage.getFileList("www/Audio/").then((entries: string[]) => {
+      entries.forEach(element => {
+        // Subjects Picker füllen
+        this.genres.push(element);
+      });
+    }, (err) => {
+      console.error(JSON.stringify(err).toString())
+    });
+  }
+
+  // Liest eine Liste an Titeln im jeweiligen Genre-Ordner aus dem nativen Gerätespeicher aus und stellt diese Liste im Titel-Picker dar.
   fillTitlesPicker(dir: string) {
     this.storage.getFileList("www/Audio/" + dir + "/").then((entries: string[]) => {
       entries.forEach(element => {
@@ -42,17 +58,7 @@ export class OptionsPage {
     });
   }
 
-  fillGenresPicker() {
-    this.storage.getFileList("www/Audio/").then((entries: string[]) => {
-      entries.forEach(element => {
-        // Subjects Picker füllen
-        this.genres.push(element);
-      });
-    }, (err) => {
-      console.error(JSON.stringify(err).toString())
-    });
-  }
-
+  // Löscht die gespeicherten Angaben und füllt den Titel-Picker neu.
   genreChangedEvent(selectedGenre) {
     this.titles = [];
     this.playTitle = [];
@@ -60,6 +66,7 @@ export class OptionsPage {
     this.fillTitlesPicker(this.genreID);
   }
 
+  // Öffnet oder erneuert die Titel-Vorschau.
   titleChangedEvent(selectedTitle) {
     this.playTitle = [];
     this.playTitle.push(this.titleID);
@@ -102,13 +109,16 @@ export class OptionsPage {
     });
   }*/
 
+  // Meldet den User ab und lässt ihn zur Startseite zurückkehren.
   logout() {
     this.utilities.logout();
     this.navCtrl.setRoot(HomePage);
     this.navCtrl.popToRoot();
   }
 
+  // Startet die Video-Aufnahme mit den eingestellten Parametern.
   startRecording() {
+    // TODO: Video-Aufnahme implementieren.
     if (this.subjectID === "" || this.titleID === "" || this.duration === 0) {
       this.utilities.giveAlert("Fehler!", "Bitte alle Felder ausfüllen!");
     } else {
@@ -116,7 +126,9 @@ export class OptionsPage {
     }
   }
 
+  // Lädt das aufgenommene Video auf den Server hoch.
   uploadVideo() {
+    // Lädt ein  Video aus dem nativen Gerätespeicher auf den Server hoch (falls mind. eins vorhanden ist).
     this.storage.getFileList("www/Video/").then((entries: string[]) => {
       if (entries.length >= 1) {
         if (entries[0].substring(entries[0].length - 3, entries[0].length) === "mp4") {

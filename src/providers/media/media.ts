@@ -29,6 +29,10 @@ const PROXY = "http://minden.froese-energieausholz.de:3000/api";
 const PATH = "file:///android_asset/";
 
 @Injectable()
+
+/**
+ * Die Klasse MediaProvider kümmert sich um alle Angelegenheiten, die sich mit Medien befassen.
+ */
 export class MediaProvider {
 
   constructor(private videoPlayer: VideoPlayer,
@@ -39,6 +43,7 @@ export class MediaProvider {
     public utilities: UtilitiesProvider) {
   }
 
+  // Spielt das übergebene Video ab.
   playVideo(file: string) {
     return new Promise((resolve, reject) => {
 
@@ -52,15 +57,16 @@ export class MediaProvider {
     });
   }
 
+  // Lädt das übergebene Video auf den Server hoch.
   uploadVideo(filename: string) {
     return new Promise((resolve, reject) => {
 
-      // Auf CheckAuthentification ändern ------------------------------------------------------
       this.authProvider.getToken().then((token: SessionModel) => {
 
         var progress: number = 0;
         this.utilities.showLoader("Uploading Video.... <br> Upload bei: " + progress + "%");
 
+        // Erzeugt ein Objekt, welches sich um den Dateitransfer zum Server kümmert.
         const fileTransfer: FileTransferObject = this.transfer.create();
         var options = {
           fileKey: "upfile",
@@ -69,12 +75,14 @@ export class MediaProvider {
           mimeType: "multipart/form-data",
           headers: { authorization: token.getSessionID() }
         };
+        // Zeigt den Upload grafisch dar.
         fileTransfer.onProgress((e) => {
           if (progress < Math.round((e.loaded * 100) / e.total)) {
             progress = Math.round((e.loaded * 100) / e.total);
             this.utilities.setLoaderContent("Uploading Video.... <br> Upload bei: " + progress + "%");
           }
         });
+        // Datei auf /upload hochladen
         fileTransfer.upload(PATH + "www/Video/" + filename, PROXY + "/upload", options).then((result: FileUploadResult) => {
           this.utilities.closeLoader();
 
@@ -109,6 +117,7 @@ export class MediaProvider {
     });
   }
 
+  // Erzeugt eine Log-Ausgabe für jede Datei, die im Ordner "Video" existiert.
   listFilesInLog() {
     this.storage.getFileList("www/Video/").then((entries: string[]) => {
       entries.forEach(element => {

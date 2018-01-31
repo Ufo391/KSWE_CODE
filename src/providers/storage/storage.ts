@@ -4,6 +4,10 @@ import 'rxjs/add/operator/map';
 import { File } from '@ionic-native/file';
 
 @Injectable()
+
+/**
+ * Die Klasse StorageProvider kümmert sich um den Zugriff auf den nativen Speicher.
+ */
 export class StorageProvider {
   path: string = "";
 

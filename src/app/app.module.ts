@@ -22,7 +22,6 @@ import { FileTransfer} from '@ionic-native/file-transfer';
 import { NativeAudio } from '@ionic-native/native-audio';
 
 import { AuthProvider } from '../providers/auth/auth';
-import { NavigationProvider } from '../providers/navigation/navigation';
 import { UtilitiesProvider } from '../providers/utilities/utilities';
 import { StorageProvider } from '../providers/storage/storage';
 import { MediaProvider } from '../providers/media/media';
@@ -64,7 +63,6 @@ import { MediaProvider } from '../providers/media/media';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     NativeAudio,
-    NavigationProvider,
     File,
     VideoPlayer,
     FileTransfer,

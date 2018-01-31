@@ -7,6 +7,10 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { SessionModel } from '../../app/models/SessionModel';
 
 @Injectable()
+
+/**
+ * Die Klasse UtilitiesProvider kümmert sich um alle nicht eindeutig zuordbaren Angelegenheiten.
+ */
 export class UtilitiesProvider {
 
   private loading: any;

@@ -21,6 +21,10 @@ import { MediaProvider } from '../../providers/media/media';
   selector: 'page-rating',
   templateUrl: 'rating.html',
 })
+
+/**
+ * Die Klasse RatingPage kümmert sich um den Inhalt der Seite "Judge".
+ */
 export class RatingPage {
   @ViewChild('SwingElement') swingStack: SwingStackComponent;
   @ViewChildren('CardsDeck') swingCards: QueryList<SwingCardComponent>;
@@ -35,6 +39,7 @@ export class RatingPage {
     public utilities: UtilitiesProvider,
     public storage: StorageProvider,
     public media: MediaProvider) {
+    // Legt fest, wie der Stack der Cards definiert ist, z.B. ab wann wurde weit genug geswiped um eine Funktion auszulösen.
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
         return Math.min(Math.abs(offsetX) / (element.offsetWidth / 2), 1);
@@ -46,16 +51,18 @@ export class RatingPage {
         return 800;
       }
     };
+    // Legt den ersten Stapel an Cards an.
     this.addNewCards();
   }
 
+  // Verbindet das DragEvent vom Stack mit der vorgegebenen Funktion.
   ngAfterViewInit() {
     this.swingStack.throwin.subscribe((event: DragEvent) => {
       event.target.style.background = '#ffffff';
     });
   }
 
-  // Changes the background color of the picture
+  // Ändert die Hintergrundfarbe der Card beim Swipen.
   onItemMove(element, x, y, r) {
     var color = '';
     var abs = Math.abs(x);
@@ -72,7 +79,7 @@ export class RatingPage {
     element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
   }
 
-  // Gives a vote and calls a new Card via Http
+  // Wertet ein abgegebenes Votum aus und lädt ggf. neue Elemente für den Stapel an Cards nach.
   vote(like: boolean) {
     this.removedVideo = this.videos.pop();
 
@@ -83,17 +90,21 @@ export class RatingPage {
 
     if (like) {
       console.log("StarDuell: You liked: " + this.removedVideo);
+      // TODO: Votum dem Server mitteilen.
     } else {
       console.log("StarDuell: You disliked: " + this.removedVideo);
+      // TODO: Votum dem Server mitteilen.
     }
   }
 
-  // Add new card to our array
+  // Fügt dem Stack an Cards neue Videos hinzu.
+  // Liest die Videos aud dem nativen Gerätespeicher aus und fügt für jedes Video eine Card hinzu.
   addNewCards() {
 
+    // TODO: Video Urls vom Server bekommen und als Element hinzufügen.
     this.storage.getFileList("www/Video/").then((entries: string[]) => {
       entries.forEach(element => {
-        // Liste aller Videos füllen
+        // Liste aller Videos füllen.
         this.videos.push(element);
       });
     }, (err) => {
@@ -104,6 +115,7 @@ export class RatingPage {
 
   }
 
+  // Rechnet den dezimalen Wert in Hexadezimal um.
   decimalToHex(d, padding) {
     var hex = Number(d).toString(16);
     padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
@@ -115,6 +127,7 @@ export class RatingPage {
     return hex;
   }
 
+  // Meldet den User ab und lässt ihn zur Startseite zurückkehren.
   logout() {
     this.utilities.logout();
     this.navCtrl.setRoot(HomePage);

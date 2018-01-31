@@ -12,6 +12,10 @@ import { UtilitiesProvider } from '../../providers/utilities/utilities';
   selector: 'page-mode',
   templateUrl: 'mode.html',
 })
+
+/**
+ * Die Klasse ModePage kümmert sich um den Inhalt der Seite "Mode".
+ */
 export class ModePage {
 
   items: string[];
@@ -21,20 +25,24 @@ export class ModePage {
     public utilities: UtilitiesProvider) {
   }
 
+  // Öffnet die Seite "Record".
   openOptions() {
     this.navCtrl.push(OptionsPage);
   }
 
+  // Öffnet die Seite "Archive".
   openArchive() {
     this.navCtrl.push(ArchivePage);
   }
 
+  // Meldet den User ab und lässt ihn zur Startseite zurückkehren.
   logout() {
     this.utilities.logout();
     this.navCtrl.setRoot(HomePage);
     this.navCtrl.popToRoot();
   }
 
+  // Öffnet die Seite "Judge".
   openRating() {
     this.navCtrl.push(RatingPage);
   }
